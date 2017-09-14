@@ -48,7 +48,6 @@ func getEncodedID() string {
 }
 
 func OAuthHandler(c echo.Context) error {
-	log.Println("kita")
 	responseType := "code"
 	redirectURI := "https%3A%2F%2Flocalhost%3A3000%2Fcallback%2F"
 	url := "https://accounts.spotify.com/authorize/?client_id=" + clientID + "&response_type=" + responseType + "&redirect_uri=" + redirectURI + "&scope=user-read-private%20user-library-read%20user-follow-read"
