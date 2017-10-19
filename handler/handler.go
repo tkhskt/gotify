@@ -1,3 +1,7 @@
+/**
+ Don't Edit
+ */
+
 package handler
 
 import (
@@ -12,16 +16,17 @@ import (
 	"github.com/labstack/echo"
 )
 
-const clientID string = ""
-const clientSecret string = ""
+const clientID string = "6c9f61b6ffb5420ca8995290b82a88a9"
+const clientSecret string = "982ddafad2a84ea190deb9fa7a1e426f"
 
 type Tokens struct {
-	AccessToken  string `json:"access_token"`
-	TokenType    string `json:"token_type"`
-	Scope        string `json:"scope"`
-	ExpiresIn    int    `json:"expire_in"`
-	RefreshToken string `json:"refresh_token"`
+		AccessToken  string `json:"access_token"`
+		TokenType    string `json:"token_type"`
+		Scope        string `json:"scope"`
+		ExpiresIn    int    `json:"expire_in"`
+		RefreshToken string `json:"refresh_token"`
 }
+
 
 func getUserStatus(token string) (string, error) {
 	req, err := http.NewRequest("GET", "https://api.spotify.com/v1/me/following?type=artist", nil)
@@ -50,7 +55,8 @@ func getEncodedID() string {
 func OAuthHandler(c echo.Context) error {
 	responseType := "code"
 	redirectURI := "https%3A%2F%2Flocalhost%3A3000%2Fcallback%2F"
-	url := "https://accounts.spotify.com/authorize/?client_id=" + clientID + "&response_type=" + responseType + "&redirect_uri=" + redirectURI + "&scope=user-read-private%20user-library-read%20user-follow-read"
+	url := "https://accounts.spotify.com/authorize/?client_id=" + clientID + "&response_type=" + responseType + "&redirect_uri=" + redirectURI +
+		"&scope=user-read-private%20user-library-read%20user-follow-read"
 	return c.Redirect(http.StatusSeeOther, url)
 }
 
@@ -60,7 +66,7 @@ func CallbackHandler(c echo.Context) error {
 	qr := c.QueryParams()
 	str := qr["code"]
 
-	//Bpdyに値を追加
+	//Bodyに値を追加
 	values := url.Values{}
 	values.Set("grant_type", "authorization_code")
 	values.Add("code", str[0])
@@ -81,7 +87,7 @@ func CallbackHandler(c echo.Context) error {
 		return err
 	}
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data := new(Tokens) //レスポンスのjsonをバインドする
+	data := new(Tokens) //レスポンスのjsonをバインドする アクセストークン
 	if err := json.Unmarshal(byteArray, data); err != nil {
 		return err
 	}
