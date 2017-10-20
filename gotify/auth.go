@@ -1,6 +1,14 @@
 package gotify
 
-import "strings"
+import (
+	"strings"
+	"net/http"
+	"net/url"
+	"io/ioutil"
+	"encoding/base64"
+	"encoding/json"
+	"log"
+)
 
 type (
 	Client struct {
@@ -17,23 +25,63 @@ type (
 		RefreshToken string `json:"refresh_token"`
 	}
 
-	Endpoints interface {
-		GetUserStatus() string
+	OAuth interface {
+		Set(string, string, string) *Client
+		Auth() string
+		CallBackHandler(*http.Request) (string, error)
 	}
 )
 
+func (c *Client) getEncodedID() string {
+	str := c.ClientID + ":" + c.ClientID
+	enc := base64.StdEncoding.EncodeToString([]byte(str))
+	return enc
+}
+
 func Set(clientID string, clientSecret string, callbackURI string) (*Client) {
-	client := &Client{ClientID: clientID, ClientSecret: clientSecret, CallbackURI: callbackURI}
+	removeSlash := strings.Replace(callbackURI, "/", "%2F", -1)
+	callback := strings.Replace(removeSlash, ":", "%3A", -1)
+	client := &Client{ClientID: clientID, ClientSecret: clientSecret, CallbackURI: callback}
 	return client
 }
 
-func (c *Client) AuthCode() string {
+func (c *Client) AuthURL() string {
 	responseType := "code"
-	removeSlash := strings.Replace(c.CallbackURI, "/", "%2F", -1)
-	redirectURI := strings.Replace(removeSlash, ":", "%3A", -1)
 
-	url := "https://accounts.spotify.com/authorize/?client_id=" + c.ClientID + "&response_type=" + responseType + "&redirect_uri=" + redirectURI +
+	redirectURL := "https://accounts.spotify.com/authorize/?client_id=" + c.ClientID + "&response_type=" + responseType + "&redirect_uri=" + c.CallbackURI +
 		"&scope=user-read-private%20user-library-read%20user-follow-read"
 
-	return url
+	return redirectURL
+}
+
+func (c *Client) CallbackHandler(r *http.Request) (*Tokens, error) {
+	client := &http.Client{}
+	code := r.URL.Query().Get("code")
+	log.Println(r.URL.String())
+
+	//Bodyに値を追加
+	values := url.Values{}
+	values.Set("grant_type", "authorization_code")
+	values.Add("code", code)
+	values.Add("redirect_uri", c.CallbackURI)
+
+	//リクエストオブジェクトを生成
+	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
+	if err != nil {
+		return nil, err
+	}
+
+	auth := c.getEncodedID()
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Authorization", "Basic "+auth)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	data := new(Tokens) //レスポンスのjsonをバインドする アクセストークン
+	if err := json.Unmarshal(byteArray, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }

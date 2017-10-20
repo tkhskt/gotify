@@ -5,7 +5,7 @@
 package main
 
 import (
-	"github.com/go-spotify/handler"
+	"github.com/gericass/go-spotify/handler"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )

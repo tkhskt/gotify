@@ -2,7 +2,7 @@ package gotify
 
 import (
 	"github.com/labstack/echo"
-	"github.com/go-spotify/handler"
+	"github.com/gericass/go-spotify/handler"
 )
 
 
@@ -11,5 +11,5 @@ func OAuthHandler(clientID string, clientSecret string, callbackURL string) (t *
 	e := echo.New()
 	e.StartTLS(":3000", "cert.pem", "key.pem")
 	e.GET(callbackURL, handler.CallbackHandler)
-
+	return nil
 }

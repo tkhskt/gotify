@@ -65,6 +65,7 @@ func CallbackHandler(c echo.Context) error {
 	client := &http.Client{}
 	qr := c.QueryParams()
 	str := qr["code"]
+	log.Println(str)
 
 	//Bodyに値を追加
 	values := url.Values{}
