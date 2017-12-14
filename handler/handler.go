@@ -1,6 +1,6 @@
 /**
- Don't Edit
- */
+Don't Edit
+*/
 
 package handler
 
@@ -13,20 +13,20 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/gericass/go-spotify/gotify"
 	"github.com/labstack/echo"
 )
 
-const clientID string = "6c9f61b6ffb5420ca8995290b82a88a9"
-const clientSecret string = "982ddafad2a84ea190deb9fa7a1e426f"
+const clientID string = ""
+const clientSecret string = ""
 
 type Tokens struct {
-		AccessToken  string `json:"access_token"`
-		TokenType    string `json:"token_type"`
-		Scope        string `json:"scope"`
-		ExpiresIn    int    `json:"expire_in"`
-		RefreshToken string `json:"refresh_token"`
+	AccessToken  string `json:"access_token"`
+	TokenType    string `json:"token_type"`
+	Scope        string `json:"scope"`
+	ExpiresIn    int    `json:"expire_in"`
+	RefreshToken string `json:"refresh_token"`
 }
-
 
 func getUserStatus(token string) (string, error) {
 	req, err := http.NewRequest("GET", "https://api.spotify.com/v1/me/following?type=artist", nil)
@@ -98,4 +98,12 @@ func CallbackHandler(c echo.Context) error {
 	}
 
 	return c.String(http.StatusOK, result)
+}
+
+type Got struct {
+	Gt *gotify.Client
+}
+
+func (g *Got) TestCallbackHandler(c echo.Context) error {
+
 }
