@@ -32,6 +32,7 @@ func TestCallbackHandler(c echo.Context) error {
 	if err != nil {
 		return err
 	}
+
 	res, err := response.GetUserStatus(token)
 	if err != nil {
 		return nil

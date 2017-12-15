@@ -1,13 +1,12 @@
 package gotify
 
 import (
-	"strings"
-	"net/http"
-	"net/url"
-	"io/ioutil"
 	"encoding/base64"
 	"encoding/json"
-	"log"
+	"io/ioutil"
+	"net/http"
+	"net/url"
+	"strings"
 )
 
 type (
@@ -38,7 +37,7 @@ func (c *Client) getEncodedID() string {
 	return enc
 }
 
-func Set(clientID string, clientSecret string, callbackURI string) (*Client) {
+func Set(clientID string, clientSecret string, callbackURI string) *Client {
 	removeSlash := strings.Replace(callbackURI, "/", "%2F", -1)
 	callback := strings.Replace(removeSlash, ":", "%3A", -1)
 	client := &Client{ClientID: clientID, ClientSecret: clientSecret, CallbackURI: callback}
@@ -57,13 +56,15 @@ func (c *Client) AuthURL() string {
 func (c *Client) CallbackHandler(r *http.Request) (*Tokens, error) {
 	client := &http.Client{}
 	code := r.URL.Query().Get("code")
-	log.Println(r.URL.String())
+
+	removeSlash := strings.Replace(c.CallbackURI, "%2F", "/", -1)
+	redirectUri := strings.Replace(removeSlash, "%3A", ":", -1)
 
 	//Bodyに値を追加
 	values := url.Values{}
 	values.Set("grant_type", "authorization_code")
 	values.Add("code", code)
-	values.Add("redirect_uri", c.CallbackURI)
+	values.Add("redirect_uri", redirectUri)
 
 	//リクエストオブジェクトを生成
 	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
