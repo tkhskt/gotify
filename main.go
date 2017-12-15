@@ -11,8 +11,8 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
-const clientID = "6c9f61b6ffb5420ca8995290b82a88a9"
-const clientSecret = "982ddafad2a84ea190deb9fa7a1e426f"
+const clientID = ""
+const clientSecret = ""
 const callbackURI = "https://localhost:3000/callback/"
 
 func first(c echo.Context) error {

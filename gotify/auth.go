@@ -27,12 +27,12 @@ type (
 	OAuth interface {
 		Set(string, string, string) *Client
 		Auth() string
-		CallBackHandler(*http.Request) (string, error)
+		Token(*http.Request) (string, error)
 	}
 )
 
 func (c *Client) getEncodedID() string {
-	str := c.ClientID + ":" + c.ClientID
+	str := c.ClientID + ":" + c.ClientSecret
 	enc := base64.StdEncoding.EncodeToString([]byte(str))
 	return enc
 }
@@ -53,7 +53,8 @@ func (c *Client) AuthURL() string {
 	return redirectURL
 }
 
-func (c *Client) CallbackHandler(r *http.Request) (*Tokens, error) {
+func (c *Client) Token(r *http.Request) (*Tokens, error) {
+
 	client := &http.Client{}
 	code := r.URL.Query().Get("code")
 

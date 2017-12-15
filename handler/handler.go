@@ -28,7 +28,7 @@ type Got struct {
 }
 
 func TestCallbackHandler(c echo.Context) error {
-	token, err := Auth.CallbackHandler(c.Request())
+	token, err := Auth.Token(c.Request())
 	if err != nil {
 		return err
 	}
