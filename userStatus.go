@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func GetUserStatus(token *Tokens) (string, error) {
+func UserStatus(token *Tokens) (string, error) {
 	req, err := http.NewRequest("GET", "https://api.spotify.com/v1/me/following?type=artist", nil)
 	if err != nil {
 		log.Println(err)
