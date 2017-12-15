@@ -11,13 +11,13 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
-const clientID = ""
-const clientSecret = ""
+const clientID = "6c9f61b6ffb5420ca8995290b82a88a9"
+const clientSecret = "982ddafad2a84ea190deb9fa7a1e426f"
 const callbackURI = "https://localhost:3000/callback/"
 
-func (g *handler.Got) first(c echo.Context) error {
-	g.Gt.AuthURL()
-	return nil
+func first(c echo.Context) error {
+	url := handler.Auth.AuthURL()
+	return c.Redirect(301, url)
 }
 
 func callback(c echo.Context) error {
@@ -31,10 +31,10 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	got := &handler.Got{gotify.Set(clientID, clientSecret, callbackURI)}
+	handler.Auth = gotify.Set(clientID, clientSecret, callbackURI)
 
-	e.GET("/", got.first)
-	e.GET("/callback/", handler.CallbackHandler)
+	e.GET("/", first)
+	e.GET("/callback/", handler.TestCallbackHandler)
 
 	//HTTPSを使うのに必要！
 	e.Logger.Fatal(e.StartTLS(":3000", "cert.pem", "key.pem"))
