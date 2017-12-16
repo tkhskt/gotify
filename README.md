@@ -19,6 +19,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 - artists
     - `/v1/artists?ids={ids}`
     - `/v1/artists/{id}/albums`
+    - `/v1/artists/{id}/top-tracks`
 
 ## Usage
 
