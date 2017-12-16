@@ -1,4 +1,4 @@
-# gotify
+# gotify [![Go Report Card](https://goreportcard.com/badge/github.com/gericass/gotify)](https://goreportcard.com/report/github.com/gericass/gotify)
 
 gotify is the wrapper library of [Spotify API](https://developer.spotify.com/web-api/)
 
