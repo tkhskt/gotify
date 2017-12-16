@@ -8,6 +8,9 @@ import (
 )
 
 func (t *Tokens) GetAlbums(albumIDs []string) (*models.Albums, error) {
+	/**
+	https://developer.spotify.com/web-api/get-several-albums/
+	*/
 
 	endpoint := "https://api.spotify.com/v1/albums/?ids="
 
@@ -34,6 +37,9 @@ func (t *Tokens) GetAlbums(albumIDs []string) (*models.Albums, error) {
 }
 
 func (t *Tokens) GetAlbumsTracks(albumID string) (*models.AlbumsTracks, error) {
+	/**
+	https://developer.spotify.com/web-api/get-albums-tracks/
+	*/
 
 	endpoint := "https://api.spotify.com/v1/albums/" + albumID + "/tracks"
 
