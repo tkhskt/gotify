@@ -2,7 +2,7 @@
 
 gotify is the wrapper library of [Spotify API](https://developer.spotify.com/web-api/)
 
-## Require
+## Requirements
 
 - Go 1.9~
 
