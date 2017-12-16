@@ -13,20 +13,33 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ## Supported Endpoint
 
-- albums
-    - `/v1/albums?ids={ids}`
-    - `/v1/albums/{id}/tracks`
-- artists
-    - `/v1/artists?ids={ids}`
-    - `/v1/artists/{id}/albums`
-    - `/v1/artists/{id}/top-tracks`
-    - `/v1/artists/{id}/related-artists`
-- browse
-    - `/v1/browse/featured-playlists`
-    - `/v1/browse/new-releases`
-    - `/v1/browse/categories`
-    - `/v1/browse/categories/{id}`
-    - `/v1/browse/categories/{category_id}/playlists`
+### albums
+
+| Endpoint                              | Struct Name              | Optional param support |
+|--------------------------------------|---------------------------|------------------------|
+| /v1/albums?ids={ids}                 | Albums                    | ❌                      |
+| /v1/albums/{id}/tracks               | AlbumsTracks              | ❌                      |
+
+
+### artists
+
+| Endpoint                              | Struct Name              | Optional param support |
+|--------------------------------------|---------------------------|------------------------|
+| /v1/artists?ids={ids}                | Artists                   | no option               |
+| /v1/artists/{id}/albums              | ArtistsAlbums             | ✅                      |
+| /v1/artists/{id}/top-tracks          | ArtistsTopTracks          | no option               |
+| /v1/artists/{id}/related-artists     | ArtistsRelatedArtists     | no option               |
+
+### browse
+
+| Endpoint                              | Struct Name              | Optional param support |
+|--------------------------------------|---------------------------|------------------------|
+| /v1/browse/featured-playlists        | BrowseFeaturedPlaylists   | ❌                      |
+| /v1/browse/new-releases              | BrowseNewReleases         | ❌                      |
+| /v1/browse/categories                | BrowseCategories          | ❌                      |
+| /v1/browse/categories/{id}           | BrowseCategory            | ❌                      |
+| /v1/browse/categories/{id}/playlists | BrowseCategoriesPlaylists | ❌                      |
+| /v1/recommendations                  | Recomendations            | ❌                      |
 
 ## Usage
 
