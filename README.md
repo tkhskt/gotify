@@ -15,6 +15,8 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### albums
 
+*Endpoints that are not yet supported for optional parameters are also planned to be in order*
+
 | Endpoint                              | Struct Name              | Optional param support |
 |--------------------------------------|---------------------------|------------------------|
 | /v1/albums?ids={ids}                 | Albums                    | ❌                      |
