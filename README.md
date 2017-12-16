@@ -14,11 +14,11 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 ## Supported Endpoint
 
 - albums
-    - /v1/albums?ids={ids}
-    - /v1/albums/{id}/tracks
+    - `/v1/albums?ids={ids}`
+    - `/v1/albums/{id}/tracks`
 - artists
-    - /v1/artists?ids={ids}
-    - /v1/artists/{id}/albums
+    - `/v1/artists?ids={ids}`
+    - `/v1/artists/{id}/albums`
 
 ## Usage
 
