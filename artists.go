@@ -7,6 +7,7 @@ import (
 	"github.com/gericass/gotify/models"
 )
 
+// GetArtists is the method for GET https://api.spotify.com/v1/artists
 func (t *Tokens) GetArtists(artistIDs []string) (*models.Artists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-several-artists/
@@ -36,6 +37,7 @@ func (t *Tokens) GetArtists(artistIDs []string) (*models.Artists, error) {
 	return artists, nil
 }
 
+// GetArtistsAlbums is the method for GET https://api.spotify.com/v1/artists/{id}/albums
 func (t *Tokens) GetArtistsAlbums(artistID string) (*models.ArtistsAlbums, error) {
 	/**
 	https://developer.spotify.com/web-api/get-artists-albums/
@@ -57,6 +59,7 @@ func (t *Tokens) GetArtistsAlbums(artistID string) (*models.ArtistsAlbums, error
 	return artistsAlbums, nil
 }
 
+// GetArtistsTopTracks is the method for GET https://api.spotify.com/v1/artists/{id}/top-tracks
 func (t *Tokens) GetArtistsTopTracks(artistID string, country string) (*models.ArtistsTopTracks, error) {
 	/**
 	https://developer.spotify.com/web-api/get-artists-top-tracks/
@@ -78,6 +81,7 @@ func (t *Tokens) GetArtistsTopTracks(artistID string, country string) (*models.A
 	return artistsTopTracks, nil
 }
 
+// GetArtistsRelatedArtists is the method for GET https://api.spotify.com/v1/artists/{id}/related-artists
 func (t *Tokens) GetArtistsRelatedArtists(artistID string) (*models.ArtistsRelatedArtists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-related-artists/
