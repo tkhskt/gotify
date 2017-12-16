@@ -1,6 +1,6 @@
 package models
 
-// Artists is the struct for GET https://api.spotify.com/v1/artists
+// Artists : the struct for GET https://api.spotify.com/v1/artists
 type Artists struct {
 	Artists []struct {
 		ExternalUrls struct {

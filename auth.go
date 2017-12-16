@@ -10,12 +10,14 @@ import (
 )
 
 type (
+	// Client : basic client data
 	Client struct {
 		ClientID     string
 		ClientSecret string
 		CallbackURI  string
 	}
 
+	// Tokens : tokens for using API
 	Tokens struct {
 		AccessToken  string `json:"access_token"`
 		TokenType    string `json:"token_type"`
@@ -37,7 +39,7 @@ func (c *Client) getEncodedID() string {
 	return enc
 }
 
-// Set generates and returns Client object
+// Set : generates and returns Client object
 func Set(clientID string, clientSecret string, callbackURI string) *Client {
 	removeSlash := strings.Replace(callbackURI, "/", "%2F", -1)
 	callback := strings.Replace(removeSlash, ":", "%3A", -1)
@@ -45,7 +47,7 @@ func Set(clientID string, clientSecret string, callbackURI string) *Client {
 	return client
 }
 
-// AuthURL returns URL for authorizing app
+// AuthURL : returns URL for authorizing app
 func (c *Client) AuthURL() string {
 	responseType := "code"
 
@@ -55,7 +57,7 @@ func (c *Client) AuthURL() string {
 	return redirectURL
 }
 
-// GetToken returns Tokens object
+// GetToken : returns Tokens object
 func (c *Client) GetToken(r *http.Request) (*Tokens, error) {
 
 	client := &http.Client{}
@@ -91,7 +93,7 @@ func (c *Client) GetToken(r *http.Request) (*Tokens, error) {
 	return data, nil
 }
 
-// Refresh refreshes AccessToken
+// Refresh : refreshes AccessToken
 func (c *Client) Refresh(t *Tokens) error {
 	client := &http.Client{}
 

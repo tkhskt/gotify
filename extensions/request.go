@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-// Request receives the endpoint and returns the result of the request
+// Request : receives the endpoint and returns the result of the request
 func Request(url string, token string) ([]byte, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {

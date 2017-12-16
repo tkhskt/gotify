@@ -1,6 +1,6 @@
 package models
 
-// ArtistsTopTracks is the struct for GET https://api.spotify.com/v1/artists/{id}/top-tracks
+// ArtistsTopTracks : the struct for GET https://api.spotify.com/v1/artists/{id}/top-tracks
 type ArtistsTopTracks struct {
 	Tracks []struct {
 		Album struct {
