@@ -53,7 +53,7 @@ func (c *Client) AuthURL() string {
 	return redirectURL
 }
 
-func (c *Client) Token(r *http.Request) (*Tokens, error) {
+func (c *Client) GetToken(r *http.Request) (*Tokens, error) {
 
 	client := &http.Client{}
 	code := r.URL.Query().Get("code")
@@ -86,4 +86,34 @@ func (c *Client) Token(r *http.Request) (*Tokens, error) {
 		return nil, err
 	}
 	return data, nil
+}
+
+func (c *Client) Refresh(t *Tokens) error {
+	client := &http.Client{}
+
+	//Bodyに値を追加
+	values := url.Values{}
+	values.Set("grant_type", "refresh_token")
+	values.Add("refresh_token", t.RefreshToken)
+
+	//リクエストオブジェクトを生成
+	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
+	if err != nil {
+		return err
+	}
+
+	auth := c.getEncodedID()
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Add("Authorization", "Basic "+auth)
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	data := new(Tokens) //レスポンスのjsonをバインドする アクセストークン
+	if err := json.Unmarshal(byteArray, data); err != nil {
+		return err
+	}
+	t.AccessToken = data.AccessToken
+	return nil
 }
