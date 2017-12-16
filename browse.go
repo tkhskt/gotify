@@ -7,6 +7,7 @@ import (
 	"github.com/gericass/gotify/models"
 )
 
+// GetBrowseFeaturedPlaylists is the method for GET https://api.spotify.com/v1/browse/featured-playlists
 func (t *Tokens) GetBrowseFeaturedPlaylists() (*models.BrowseFetaturedPlaylists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-list-featured-playlists/
