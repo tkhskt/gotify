@@ -1,6 +1,6 @@
 # gotify [![Go Report Card](https://goreportcard.com/badge/github.com/gericass/gotify)](https://goreportcard.com/report/github.com/gericass/gotify)
 
-gotify is the wrapper library of [Spotify API](https://developer.spotify.com/web-api/)
+gotify is the wrapper library for [Spotify API](https://developer.spotify.com/web-api/)
 
 ## Requirements
 
@@ -52,3 +52,37 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 ## Sample
 
 Please see [here](https://github.com/gericass/gotifySample) for samples
+
+```go
+package handler
+
+import (
+	"net/http"
+
+	"github.com/labstack/echo"
+
+	"github.com/gericass/gotify"
+)
+
+var Auth *gotify.Client
+var Token *gotify.Tokens
+
+// Handler : Controller for https://localhost:3000/
+func Handler(c echo.Context) error {
+	Auth = gotify.Set(clientID, clientSecret, callbackURI)
+	url := Auth.AuthURL() // Get the Redirect URL for authenticate
+	return c.Redirect(301, url)
+}
+
+// CallbackHandler : Controller for https://localhost:3000/callback/
+func CallbackHandler(c echo.Context) error {
+
+	t, err := Auth.GetToken(c.Request()) // Get the token for using Spotify API
+	if err != nil {
+		return err
+	}
+	Token = t
+
+	return c.String(http.StatusOK, "Authentication success")
+}
+```
