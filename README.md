@@ -69,7 +69,7 @@ var Token *gotify.Tokens
 
 // Handler : Controller for https://localhost:3000/
 func Handler(c echo.Context) error {
-	Auth = gotify.Set(clientID, clientSecret, callbackURI)
+	Auth = gotify.Set(clientID, clientSecret, callbackURI) // Set and get the basic data for using Spotify API
 	url := Auth.AuthURL() // Get the Redirect URL for authenticate
 	return c.Redirect(301, url)
 }
