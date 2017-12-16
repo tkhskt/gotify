@@ -20,5 +20,3 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 ## Sample
 
 Please see [here](https://github.com/gericass/gotifySample) for samples
-
-```
