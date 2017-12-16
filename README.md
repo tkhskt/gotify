@@ -4,7 +4,7 @@ gotify is the wrapper library of [Spotify API](https://developer.spotify.com/web
 
 ## Requirements
 
-- Go 1.9~
+- Go 1.9 or later
 
 ## Supported Authentication Flow
 
@@ -26,6 +26,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
     - `/v1/browse/new-releases`
     - `/v1/browse/categories`
     - `/v1/browse/categories/{id}`
+    - `/v1/browse/categories/{category_id}/playlists`
 
 ## Usage
 
