@@ -24,6 +24,8 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 - browse
     - `/v1/browse/featured-playlists`
     - `/v1/browse/new-releases`
+    - `/v1/browse/categories`
+    - `/v1/browse/categories/{id}`
 
 ## Usage
 

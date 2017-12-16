@@ -54,7 +54,7 @@ func (t *Tokens) GetBrowseNewReleases() (*models.BrowseNewReleases, error) {
 // GetBrowseCategories : the method for GET https://api.spotify.com/v1/browse/categories
 func (t *Tokens) GetBrowseCategories() (*models.BrowseCategories, error) {
 	/**
-	https://developer.spotify.com/web-api/get-list-new-releases/
+	https://developer.spotify.com/web-api/get-list-categories/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/browse/categories"
@@ -76,7 +76,7 @@ func (t *Tokens) GetBrowseCategories() (*models.BrowseCategories, error) {
 // GetBrowseCategory : the method for GET https://api.spotify.com/v1/browse/categories/{category_id}
 func (t *Tokens) GetBrowseCategory(categoryID string) (*models.BrowseCategory, error) {
 	/**
-	https://developer.spotify.com/web-api/get-list-new-releases/
+	https://developer.spotify.com/web-api/get-category/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/browse/categories/" + categoryID
@@ -93,4 +93,26 @@ func (t *Tokens) GetBrowseCategory(categoryID string) (*models.BrowseCategory, e
 		return nil, err
 	}
 	return browseCategory, nil
+}
+
+// GetBrowseCategorysPlaylists : the method for GET https://api.spotify.com/v1/browse/categories/{category_id}/playlists
+func (t *Tokens) GetBrowseCategorysPlaylists(categoryID string) (*models.BrowseCategorysPlaylists, error) {
+	/**
+	https://developer.spotify.com/web-api/get-categorys-playlists/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/browse/categories/" + categoryID + "/playlists"
+
+	res, err := extensions.Request(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+
+	browseCategorysPlaylists := new(models.BrowseCategorysPlaylists)
+
+	err = json.Unmarshal(res, browseCategorysPlaylists)
+	if err != nil {
+		return nil, err
+	}
+	return browseCategorysPlaylists, nil
 }
