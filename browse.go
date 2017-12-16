@@ -8,7 +8,7 @@ import (
 )
 
 // GetBrowseFeaturedPlaylists : the method for GET https://api.spotify.com/v1/browse/featured-playlists
-func (t *Tokens) GetBrowseFeaturedPlaylists() (*models.BrowseFetaturedPlaylists, error) {
+func (t *Tokens) GetBrowseFeaturedPlaylists() (*models.BrowseFeataturedPlaylists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-list-featured-playlists/
 	*/
@@ -20,7 +20,7 @@ func (t *Tokens) GetBrowseFeaturedPlaylists() (*models.BrowseFetaturedPlaylists,
 		return nil, err
 	}
 
-	browseFeaturedPlaylists := new(models.BrowseFetaturedPlaylists)
+	browseFeaturedPlaylists := new(models.BrowseFeataturedPlaylists)
 
 	err = json.Unmarshal(res, browseFeaturedPlaylists)
 	if err != nil {
