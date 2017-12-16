@@ -26,6 +26,7 @@ type (
 		RefreshToken string `json:"refresh_token"`
 	}
 
+	// OAuth : describe method for OAuth
 	OAuth interface {
 		Set(string, string, string) *Client
 		Auth() string
