@@ -1,6 +1,6 @@
 package models
 
-// BrowseFeaturedPlaylists is the struct for GET https://api.spotify.com/v1/browse/featured-playlists
+// BrowseFeaturedPlaylists : the struct for GET https://api.spotify.com/v1/browse/featured-playlists
 type BrowseFetaturedPlaylists struct {
 	Message   string `json:"message"`
 	Playlists struct {

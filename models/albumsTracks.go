@@ -1,6 +1,6 @@
 package models
 
-// AlbumsTracks is the struct for GET https://api.spotify.com/v1/albums/{id}/tracks
+// AlbumsTracks : the struct for GET https://api.spotify.com/v1/albums/{id}/tracks
 type AlbumsTracks struct {
 	Href  string `json:"href"`
 	Items []struct {

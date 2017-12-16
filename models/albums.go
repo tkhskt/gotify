@@ -1,6 +1,6 @@
 package models
 
-// Albums is the struct for GET https://api.spotify.com/v1/albums
+// Albums : the struct for GET https://api.spotify.com/v1/albums
 type Albums struct {
 	Albums []struct {
 		AlbumType string `json:"album_type"`

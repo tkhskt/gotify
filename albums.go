@@ -7,7 +7,7 @@ import (
 	"github.com/gericass/gotify/models"
 )
 
-// GetAlbums is method for GET https://api.spotify.com/v1/albums
+// GetAlbums : method for GET https://api.spotify.com/v1/albums
 func (t *Tokens) GetAlbums(albumIDs []string) (*models.Albums, error) {
 	/**
 	https://developer.spotify.com/web-api/get-several-albums/
@@ -37,7 +37,7 @@ func (t *Tokens) GetAlbums(albumIDs []string) (*models.Albums, error) {
 	return albums, nil
 }
 
-// GetAlbumsTracks is the method for GET https://api.spotify.com/v1/albums/{id}/tracks
+// GetAlbumsTracks : the method for GET https://api.spotify.com/v1/albums/{id}/tracks
 func (t *Tokens) GetAlbumsTracks(albumID string) (*models.AlbumsTracks, error) {
 	/**
 	https://developer.spotify.com/web-api/get-albums-tracks/
