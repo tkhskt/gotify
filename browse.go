@@ -28,3 +28,25 @@ func (t *Tokens) GetBrowseFeaturedPlaylists() (*models.BrowseFeaturedPlaylists, 
 	}
 	return browseFeaturedPlaylists, nil
 }
+
+// GetBrowseNewReleases : the method for GET https://api.spotify.com/v1/browse/new-releases
+func (t *Tokens) GetBrowseNewReleases() (*models.BrowseNewReleases, error) {
+	/**
+	https://developer.spotify.com/web-api/get-list-new-releases/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/browse/new-releases"
+
+	res, err := extensions.Request(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+
+	browseNewReleases := new(models.BrowseNewReleases)
+
+	err = json.Unmarshal(res, browseNewReleases)
+	if err != nil {
+		return nil, err
+	}
+	return browseNewReleases, nil
+}
