@@ -47,7 +47,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 | Endpoint                                 | Struct Name               | Method Name               | Optional param support |
 |------------------------------------------|---------------------------|---------------------------|------------------------|
-| GET /v1/me/following?type=artist         | FollowingArtists          | FollowingArtists          | ❌                     |
+| GET /v1/me/following?type=artist         | FollowingArtists          | GetFollowingArtists       | ❌                     |
 | PUT /v1/me/following                     | -                         | FollowArtistsOrUsers      | ✅                     |
 | DELETE /v1/me/following                  | -                         | UnfollowArtistsOrUsers    | ✅                     |
 
