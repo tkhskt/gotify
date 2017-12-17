@@ -17,37 +17,39 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### albums
 
-| Endpoint                             | Struct Name               | Optional param support |
-|--------------------------------------|---------------------------|------------------------|
-| /v1/albums?ids={ids}                 | Albums                    | ❌                     |
-| /v1/albums/{id}/tracks               | AlbumsTracks              | ❌                     |
+| Endpoint                                 | Struct Name               | Method Name               | Optional param support |
+|------------------------------------------|---------------------------|---------------------------|------------------------|
+| GET /v1/albums?ids={ids}                 | Albums                    | GetAlbums                    | ❌                     |
+| GET /v1/albums/{id}/tracks               | AlbumsTracks              | GetAlbumsTracks              | ❌                     |
 
 
 ### artists
 
-| Endpoint                             | Struct Name               | Optional param support |
-|--------------------------------------|---------------------------|------------------------|
-| /v1/artists?ids={ids}                | Artists                   | no option              |
-| /v1/artists/{id}/albums              | ArtistsAlbums             | ✅                     |
-| /v1/artists/{id}/top-tracks          | ArtistsTopTracks          | no option              |
-| /v1/artists/{id}/related-artists     | ArtistsRelatedArtists     | no option              |
+| Endpoint                                 | Struct Name               | Method Name                  | Optional param support |
+|------------------------------------------|---------------------------|------------------------------|------------------------|
+| GET /v1/artists?ids={ids}                | Artists                   | GetArtists                   | no option              |
+| GET /v1/artists/{id}/albums              | ArtistsAlbums             | GetArtistsAlbums             | ✅                     |
+| GET /v1/artists/{id}/top-tracks          | ArtistsTopTracks          | GetArtistsTopTracks          | no option              |
+| GET /v1/artists/{id}/related-artists     | ArtistsRelatedArtists     | GetArtistsRelatedArtists     | no option              |
 
 ### browse
 
-| Endpoint                             | Struct Name               | Optional param support |
-|--------------------------------------|---------------------------|------------------------|
-| /v1/browse/featured-playlists        | BrowseFeaturedPlaylists   | ❌                     |
-| /v1/browse/new-releases              | BrowseNewReleases         | ❌                     |
-| /v1/browse/categories                | BrowseCategories          | ❌                     |
-| /v1/browse/categories/{id}           | BrowseCategory            | ❌                     |
-| /v1/browse/categories/{id}/playlists | BrowseCategorysPlaylists  | ❌                     |
-| /v1/recommendations                  | Recomendations            | ❌                     |
+| Endpoint                                 | Struct Name               | Method Name                  | Optional param support |
+|------------------------------------------|---------------------------|------------------------------|------------------------|
+| GET /v1/browse/featured-playlists        | BrowseFeaturedPlaylists   | GetBrowseFeaturedPlaylists   | ❌                     |
+| GET /v1/browse/new-releases              | BrowseNewReleases         | GetBrowseNewReleases         | ❌                     |
+| GET /v1/browse/categories                | BrowseCategories          | GetBrowseCategories          | ❌                     |
+| GET /v1/browse/categories/{id}           | BrowseCategory            | GetBrowseCategory            | ❌                     |
+| GET /v1/browse/categories/{id}/playlists | BrowseCategorysPlaylists  | GetBrowseCategorysPlaylists  | ❌                     |
+| GET /v1/recommendations                  | Recomendations            | GetRecomendations            | ❌                     |
 
 ### following
 
-| Endpoint                             | Struct Name               | Optional param support |
-|--------------------------------------|---------------------------|------------------------|
-| /v1/me/following?type=artist         | FollowingArtists          | ❌                     |
+| Endpoint                                 | Struct Name               | Method Name               | Optional param support |
+|------------------------------------------|---------------------------|---------------------------|------------------------|
+| GET /v1/me/following?type=artist         | FollowingArtists          | FollowingArtists          | ❌                     |
+| PUT /v1/me/following                     | -                         | FollowArtistsOrUsers      | ✅                     |
+| DELETE /v1/me/following                  | -                         | UnfollowArtistsOrUsers    | ✅                     |
 
 
 ## Usage

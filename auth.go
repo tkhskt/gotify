@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/gericass/gotify/constants"
 )
 
 type (
@@ -51,9 +53,34 @@ func Set(clientID string, clientSecret string, callbackURI string) *Client {
 // AuthURL : returns URL for authorizing app
 func (c *Client) AuthURL() string {
 	responseType := "code"
+	and := "%20"
+	redirectURL := "https://accounts.spotify.com/authorize/?client_id=" + c.ClientID + "&response_type=" + responseType + "&redirect_uri=" + c.CallbackURI + "&scope=" //"user-read-private%20user-library-read%20user-follow-read"
 
-	redirectURL := "https://accounts.spotify.com/authorize/?client_id=" + c.ClientID + "&response_type=" + responseType + "&redirect_uri=" + c.CallbackURI +
-		"&scope=user-read-private%20user-library-read%20user-follow-read"
+	scopes := []string{constants.PlaylistReadPrivate,
+		constants.PlaylistReadCollaborative,
+		constants.PlaylistModifyPublic,
+		constants.PlaylistModifyPrivate,
+		constants.Streaming,
+		constants.UgcImageUpload,
+		constants.UserFollowModify,
+		constants.UserFollowRead,
+		constants.UserLibraryRead,
+		constants.UserLibraryModify,
+		constants.UserReadPrivate,
+		constants.UserReadBirthdate,
+		constants.UserReadEmail,
+		constants.UserTopRead,
+		constants.UserReadPlaybackState,
+		constants.UserModifyPlaybackState,
+		constants.UserReadCurrentlyPlaying,
+		constants.UserReadRecentlyPlayed}
+	for i, v := range scopes {
+		if i == 0 {
+			redirectURL += v
+		} else {
+			redirectURL += and + v
+		}
+	}
 
 	return redirectURL
 }

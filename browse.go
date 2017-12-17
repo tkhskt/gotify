@@ -15,7 +15,7 @@ func (t *Tokens) GetBrowseFeaturedPlaylists() (*models.BrowseFeaturedPlaylists, 
 
 	endpoint := "https://api.spotify.com/v1/browse/featured-playlists"
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +37,7 @@ func (t *Tokens) GetBrowseNewReleases() (*models.BrowseNewReleases, error) {
 
 	endpoint := "https://api.spotify.com/v1/browse/new-releases"
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (t *Tokens) GetBrowseCategories() (*models.BrowseCategories, error) {
 
 	endpoint := "https://api.spotify.com/v1/browse/categories"
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func (t *Tokens) GetBrowseCategory(categoryID string) (*models.BrowseCategory, e
 
 	endpoint := "https://api.spotify.com/v1/browse/categories/" + categoryID
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +103,7 @@ func (t *Tokens) GetBrowseCategorysPlaylists(categoryID string) (*models.BrowseC
 
 	endpoint := "https://api.spotify.com/v1/browse/categories/" + categoryID + "/playlists"
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}

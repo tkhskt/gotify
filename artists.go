@@ -23,7 +23,7 @@ func (t *Tokens) GetArtists(artistIDs []string) (*models.Artists, error) {
 		}
 	}
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (t *Tokens) GetArtistsAlbums(artistID string) (*models.ArtistsAlbums, error
 
 	endpoint := "https://api.spotify.com/v1/artists/" + artistID + "/albums"
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (t *Tokens) GetArtistsTopTracks(artistID string, country string) (*models.A
 
 	endpoint := "https://api.spotify.com/v1/artists/" + artistID + "/top-tracks?country=" + country
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
@@ -89,7 +89,7 @@ func (t *Tokens) GetArtistsRelatedArtists(artistID string) (*models.ArtistsRelat
 
 	endpoint := "https://api.spotify.com/v1/artists/" + artistID + "/related-artists"
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}

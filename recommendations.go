@@ -15,7 +15,7 @@ func (t *Tokens) GetRecommendations() (*models.Recommendations, error) {
 
 	endpoint := "https://api.spotify.com/v1/recommendations"
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}

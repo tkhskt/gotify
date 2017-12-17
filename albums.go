@@ -23,7 +23,7 @@ func (t *Tokens) GetAlbums(albumIDs []string) (*models.Albums, error) {
 		}
 	}
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (t *Tokens) GetAlbumsTracks(albumID string) (*models.AlbumsTracks, error) {
 
 	endpoint := "https://api.spotify.com/v1/albums/" + albumID + "/tracks"
 
-	res, err := extensions.Request(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return nil, err
 	}
