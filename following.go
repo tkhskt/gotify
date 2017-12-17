@@ -56,7 +56,7 @@ func (t *Tokens) FollowArtistsOrUsers(followType string, IDs []string) error {
 	return nil
 }
 
-// UnFollowArtistsOrUsers : the method for DELETE https://api.spotify.com/v1/me/following
+// UnfollowArtistsOrUsers : the method for DELETE https://api.spotify.com/v1/me/following
 func (t *Tokens) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/follow-artists-users/
