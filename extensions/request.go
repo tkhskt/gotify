@@ -22,7 +22,7 @@ func GetRequest(url string, token string) ([]byte, error) {
 }
 
 // PutRequest : request to endpoint with PUT method
-func PutReqest(url string, token string) (int, error) {
+func PutRequest(url string, token string) (int, error) {
 	req, err := http.NewRequest("PUT", url, nil)
 	if err != nil {
 		return 0, err
@@ -38,7 +38,7 @@ func PutReqest(url string, token string) (int, error) {
 }
 
 // DeleteRequest : request to endpoint with DELETE method
-func DeleteReqest(url string, token string) (int, error) {
+func DeleteRequest(url string, token string) (int, error) {
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		return 0, err

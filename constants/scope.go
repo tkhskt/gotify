@@ -4,7 +4,7 @@ const (
 	// PlaylistReadPrivate : Read access to user's private playlists.
 	PlaylistReadPrivate = "playlist-read-private"
 
-	// PlaylistReadCollaborative: Include collaborative playlists when requesting a user's playlists.
+	// PlaylistReadCollaborative : Include collaborative playlists when requesting a user's playlists.
 	PlaylistReadCollaborative = "playlist-read-collaborative"
 
 	// PlaylistModifyPublic :  Write access to a user's public playlists.

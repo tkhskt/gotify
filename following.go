@@ -46,7 +46,7 @@ func (t *Tokens) FollowArtistsOrUsers(followType string, IDs []string) error {
 		}
 	}
 
-	res, err := extensions.PutReqest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return err
 	}
@@ -72,7 +72,7 @@ func (t *Tokens) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
 		}
 	}
 
-	res, err := extensions.DeleteReqest(endpoint, t.AccessToken)
+	res, err := extensions.DeleteRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return err
 	}
