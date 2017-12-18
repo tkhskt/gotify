@@ -45,12 +45,13 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### following
 
-| Endpoint                                 | Struct Name               | Method Name               | Optional param support |
-|------------------------------------------|---------------------------|---------------------------|------------------------|
-| GET /v1/me/following?type=artist         | FollowingArtists          | GetFollowingArtists       | ❌                     |
-| PUT /v1/me/following                     | -                         | FollowArtistsOrUsers      | ✅                     |
-| DELETE /v1/me/following                  | -                         | UnfollowArtistsOrUsers    | ✅                     |
-
+| Endpoint                                 | Struct Name                   | Method Name                        | Optional param support |
+|------------------------------------------|-------------------------------|------------------------------------|------------------------|
+| GET /v1/me/following?type=artist         | FollowingArtists              | GetFollowingArtists                | ❌                     |
+| PUT /v1/me/following                     | -                             | FollowArtistsOrUsers               | ✅                     |
+| DELETE /v1/me/following                  | -                             | UnfollowArtistsOrUsers             | ✅                     |
+| GET /v1/me/following/contains            | CurrentFollowsArtistsOrUsers  | GetCurrentFollowsArtistsOrUsers    | ✅                     |
+| PUT "/v1/users/{owner_id}/playlists/{playlist_id}/followers"                  | -                             | FollowPlaylists             | ✅                     |
 
 ## Usage
 
