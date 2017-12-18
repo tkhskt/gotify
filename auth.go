@@ -30,9 +30,9 @@ type (
 
 	// OAuth : describe method for OAuth
 	OAuth interface {
-		Set(string, string, string) *Client
-		Auth() string
-		Token(*http.Request) (string, error)
+		AuthURL() string
+		GetToken(*http.Request) (*Tokens, error)
+		Refresh(*Tokens) error
 	}
 )
 
@@ -43,11 +43,12 @@ func (c *Client) getEncodedID() string {
 }
 
 // Set : generates and returns Client object
-func Set(clientID string, clientSecret string, callbackURI string) *Client {
+func Set(clientID string, clientSecret string, callbackURI string) OAuth {
 	removeSlash := strings.Replace(callbackURI, "/", "%2F", -1)
 	callback := strings.Replace(removeSlash, ":", "%3A", -1)
 	client := &Client{ClientID: clientID, ClientSecret: clientSecret, CallbackURI: callback}
-	return client
+	var oauth OAuth = client
+	return oauth
 }
 
 // AuthURL : returns URL for authorizing app

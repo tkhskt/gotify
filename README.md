@@ -74,7 +74,7 @@ import (
 	"github.com/gericass/gotify"
 )
 
-var Auth *gotify.Client
+var Auth gotify.OAuth
 var Token *gotify.Tokens
 
 // Handler : Controller for https://localhost:3000/
