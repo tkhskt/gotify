@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/gericass/gotify/constants"
+	"github.com/gericass/gotify/models"
 )
 
 type (
@@ -31,8 +32,39 @@ type (
 	// OAuth : describe method for OAuth
 	OAuth interface {
 		AuthURL() string
-		GetToken(*http.Request) (*Tokens, error)
-		Refresh(*Tokens) error
+		GetToken(*http.Request) (Gotify, error)
+		Refresh(Gotify) error
+	}
+	// Gotify : interface for each endpoint of Spotify API
+	Gotify interface {
+		// method for token
+		getAccessToken() string
+		setAccessToken(string)
+		getTokenType() string
+		getScope() string
+		getExpiresIn() int
+		getRefreshToken() string
+		// albums
+		GetAlbums(albumIDs []string) (*models.Albums, error)
+		GetAlbumsTracks(albumID string) (*models.AlbumsTracks, error)
+		GetArtists(artistIDs []string) (*models.Artists, error)
+		GetArtistsAlbums(artistID string) (*models.ArtistsAlbums, error)
+		GetArtistsTopTracks(artistID string, country string) (*models.ArtistsTopTracks, error)
+		GetArtistsRelatedArtists(artistID string) (*models.ArtistsRelatedArtists, error)
+		// browse
+		GetBrowseFeaturedPlaylists() (*models.BrowseFeaturedPlaylists, error)
+		GetBrowseNewReleases() (*models.BrowseNewReleases, error)
+		GetBrowseCategories() (*models.BrowseCategories, error)
+		GetBrowseCategory(categoryID string) (*models.BrowseCategory, error)
+		GetBrowseCategorysPlaylists(categoryID string) (*models.BrowseCategorysPlaylists, error)
+		// recommendations
+		GetRecommendations() (*models.Recommendations, error)
+		// following
+		GetFollowingArtists() (*models.FollowingArtists, error)
+		FollowArtistsOrUsers(followType string, IDs []string) error
+		UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
+		CurrentFollowsArtistsOrUsers(followType string, IDs []string) (*models.CurrentFollowsArtistsOrUsers, error)
+		FollowPlaylist(userID string, playlistID string) error
 	}
 )
 
@@ -87,7 +119,7 @@ func (c *Client) AuthURL() string {
 }
 
 // GetToken : returns Tokens object
-func (c *Client) GetToken(r *http.Request) (*Tokens, error) {
+func (c *Client) GetToken(r *http.Request) (Gotify, error) {
 
 	client := &http.Client{}
 	code := r.URL.Query().Get("code")
@@ -119,17 +151,43 @@ func (c *Client) GetToken(r *http.Request) (*Tokens, error) {
 	if err := json.Unmarshal(byteArray, data); err != nil {
 		return nil, err
 	}
-	return data, nil
+
+	var gotify Gotify = data
+	return gotify, nil
+}
+
+func (t *Tokens) getAccessToken() string {
+	return t.AccessToken
+}
+
+func (t *Tokens) setAccessToken(token string) {
+	t.AccessToken = token
+}
+
+func (t *Tokens) getTokenType() string {
+	return t.TokenType
+}
+
+func (t *Tokens) getScope() string {
+	return t.Scope
+}
+
+func (t *Tokens) getExpiresIn() int {
+	return t.ExpiresIn
+}
+
+func (t *Tokens) getRefreshToken() string {
+	return t.RefreshToken
 }
 
 // Refresh : refreshes AccessToken
-func (c *Client) Refresh(t *Tokens) error {
+func (c *Client) Refresh(t Gotify) error {
 	client := &http.Client{}
 
 	//Bodyに値を追加
 	values := url.Values{}
 	values.Set("grant_type", "refresh_token")
-	values.Add("refresh_token", t.RefreshToken)
+	values.Add("refresh_token", t.getRefreshToken())
 
 	//リクエストオブジェクトを生成
 	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
@@ -149,6 +207,7 @@ func (c *Client) Refresh(t *Tokens) error {
 	if err := json.Unmarshal(byteArray, data); err != nil {
 		return err
 	}
-	t.AccessToken = data.AccessToken
+
+	t.setAccessToken(data.AccessToken)
 	return nil
 }
