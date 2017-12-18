@@ -75,7 +75,7 @@ import (
 )
 
 var Auth gotify.OAuth
-var Token *gotify.Tokens
+var Token gotify.Gotify
 
 // Handler : Controller for https://localhost:3000/
 func Handler(c echo.Context) error {
