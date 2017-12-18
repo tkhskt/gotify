@@ -27,23 +27,18 @@ type (
 		Scope        string `json:"scope"`
 		ExpiresIn    int    `json:"expire_in"`
 		RefreshToken string `json:"refresh_token"`
+		client       *Client
 	}
 
 	// OAuth : describe method for OAuth
 	OAuth interface {
 		AuthURL() string
 		GetToken(*http.Request) (Gotify, error)
-		Refresh(Gotify) error
 	}
 	// Gotify : interface for each endpoint of Spotify API
 	Gotify interface {
 		// method for token
-		getAccessToken() string
-		setAccessToken(string)
-		getTokenType() string
-		getScope() string
-		getExpiresIn() int
-		getRefreshToken() string
+		Refresh() error
 		// albums
 		GetAlbums(albumIDs []string) (*models.Albums, error)
 		GetAlbumsTracks(albumID string) (*models.AlbumsTracks, error)
@@ -151,43 +146,20 @@ func (c *Client) GetToken(r *http.Request) (Gotify, error) {
 	if err := json.Unmarshal(byteArray, data); err != nil {
 		return nil, err
 	}
+	data.client = c
 
 	var gotify Gotify = data
 	return gotify, nil
 }
 
-func (t *Tokens) getAccessToken() string {
-	return t.AccessToken
-}
-
-func (t *Tokens) setAccessToken(token string) {
-	t.AccessToken = token
-}
-
-func (t *Tokens) getTokenType() string {
-	return t.TokenType
-}
-
-func (t *Tokens) getScope() string {
-	return t.Scope
-}
-
-func (t *Tokens) getExpiresIn() int {
-	return t.ExpiresIn
-}
-
-func (t *Tokens) getRefreshToken() string {
-	return t.RefreshToken
-}
-
 // Refresh : refreshes AccessToken
-func (c *Client) Refresh(t Gotify) error {
+func (t *Tokens) Refresh() error {
 	client := &http.Client{}
 
 	//Bodyに値を追加
 	values := url.Values{}
 	values.Set("grant_type", "refresh_token")
-	values.Add("refresh_token", t.getRefreshToken())
+	values.Add("refresh_token", t.RefreshToken)
 
 	//リクエストオブジェクトを生成
 	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
@@ -195,7 +167,7 @@ func (c *Client) Refresh(t Gotify) error {
 		return err
 	}
 
-	auth := c.getEncodedID()
+	auth := t.client.getEncodedID()
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("Authorization", "Basic "+auth)
 	resp, err := client.Do(req)
@@ -208,6 +180,6 @@ func (c *Client) Refresh(t Gotify) error {
 		return err
 	}
 
-	t.setAccessToken(data.AccessToken)
+	t.AccessToken = data.AccessToken
 	return nil
 }
