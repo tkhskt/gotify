@@ -63,12 +63,12 @@ type (
 		FollowPlaylist(userID string, playlistID string) error
 		UnfollowPlaylist(userID string, playlistID string) error
 		CheckFollowPlaylist(ownerID string, playlistID string, userIDs []string) (*models.FollowPlaylist, error)
-
 		// library
 		SaveTracks(trackIDs []string) error
 		GetUsersSavedTracks() (*models.UsersSavedTracks, error)
 		RemoveUsersSavedTracks(trackIDs []string) error
 		CheckUsersSavedTracks(tracksIDs []string) (*models.FollowTracks, error)
+		SaveAlbums(albumIDs []string) error
 	}
 )
 

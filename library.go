@@ -111,3 +111,31 @@ func (t *Tokens) CheckUsersSavedTracks(trackIDs []string) (*models.FollowTracks,
 
 	return followTracks, nil
 }
+
+// SaveAlbums : the method for PUT https://api.spotify.com/v1/me/albums?ids={ids}
+func (t *Tokens) SaveAlbums(albumIDs []string) error {
+	/**
+	https://developer.spotify.com/web-api/save-albums-user/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/albums?ids="
+
+	for i, v := range albumIDs {
+		if i == 0 {
+			endpoint += v
+		} else {
+			endpoint += "," + v
+		}
+	}
+
+	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	fmt.Println("uuuuu")
+	fmt.Println(res)
+	if res != 200 {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}

@@ -64,6 +64,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | GET /v1/me/tracks                        | UsersSavedTracks              | GetUsersSavedTracks                | ❌                     |
 | DELETE /v1/me/tracks                     | -                             | RemoveUsersSavedTracks             | ✅                     |
 | GET /v1/me/tracks/contains               | FollowTracks                  | CheckUsersSavedTracks              | no option              |
+| PUT /v1/me/albums?ids={ids}              | -                             | SaveAlbums                         | ✅                     |
 
 
 ## Usage
