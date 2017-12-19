@@ -132,8 +132,6 @@ func (t *Tokens) SaveAlbums(albumIDs []string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("uuuuu")
-	fmt.Println(res)
 	if res != 200 {
 		return fmt.Errorf("%d", res)
 	}
