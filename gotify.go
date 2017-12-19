@@ -35,6 +35,7 @@ type (
 		AuthURL() string
 		GetToken(*http.Request) (Gotify, error)
 	}
+
 	// Gotify : interface for each endpoint of Spotify API
 	Gotify interface {
 		// method for token
@@ -60,6 +61,14 @@ type (
 		UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
 		CurrentFollowsArtistsOrUsers(followType string, IDs []string) (*models.CurrentFollowsArtistsOrUsers, error)
 		FollowPlaylist(userID string, playlistID string) error
+		UnfollowPlaylist(userID string, playlistID string) error
+		CheckFollowPlaylist(ownerID string, playlistID string, userIDs []string) (*models.FollowPlaylist, error)
+
+		// library
+		SaveTracks(trackIDs []string) error
+		GetUsersSavedTracks() (*models.UsersSavedTracks, error)
+		RemoveUsersSavedTracks(trackIDs []string) error
+		CheckUsersSavedTracks(tracksIDs []string) (*models.FollowTracks, error)
 	}
 )
 

@@ -41,7 +41,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | GET /v1/browse/categories                | BrowseCategories          | GetBrowseCategories          | ❌                     |
 | GET /v1/browse/categories/{id}           | BrowseCategory            | GetBrowseCategory            | ❌                     |
 | GET /v1/browse/categories/{id}/playlists | BrowseCategorysPlaylists  | GetBrowseCategorysPlaylists  | ❌                     |
-| GET /v1/recommendations                  | Recommendations            | GetRecomendations            | ❌                     |
+| GET /v1/recommendations                  | Recommendations           | GetRecomendations            | ❌                     |
 
 ### following
 
@@ -51,7 +51,20 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | PUT /v1/me/following                     | -                             | FollowArtistsOrUsers               | ✅                     |
 | DELETE /v1/me/following                  | -                             | UnfollowArtistsOrUsers             | ✅                     |
 | GET /v1/me/following/contains            | CurrentFollowsArtistsOrUsers  | GetCurrentFollowsArtistsOrUsers    | ✅                     |
-| PUT "/v1/users/{owner_id}/playlists/{playlist_id}/followers"                  | -                             | FollowPlaylists             | ❌                     |
+| PUT /v1/users/{owner_id}/playlists/{playlist_id}/followers                  | -                            | FollowPlaylists            | ❌                     |
+| DELETE /v1/users/{owner_id}/playlists/{playlist_id}/followers               | -                            | UnFollowPlaylists          | ❌                     |
+| GET /v1/users/{owner_id}/playlists/{playlist_id}/followers/contains         | FollowPlaylist               | CheckFollowPlaylist        | ✅                     |
+
+
+### library
+
+| Endpoint                                 | Struct Name                   | Method Name                        | Optional param support |
+|------------------------------------------|-------------------------------|------------------------------------|------------------------|
+| PUT /v1/me/tracks                        | -                             | SaveTracks                         | ✅                     |
+| GET /v1/me/tracks                        | UsersSavedTracks              | GetUsersSavedTracks                | ❌                     |
+| DELETE /v1/me/tracks                     | -                             | RemoveUsersSavedTracks             | ✅                     |
+| GET /v1/me/tracks/contains               | FollowTracks                  | CheckUsersSavedTracks              | ✅                     |
+
 
 ## Usage
 
