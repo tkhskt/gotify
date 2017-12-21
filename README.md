@@ -17,8 +17,8 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### albums
 
-| Endpoint                                 | Struct                    | Method                    | Optional param support |
-|------------------------------------------|---------------------------|---------------------------|------------------------|
+| Endpoint                                 | Struct                    | Method                       | Optional param support |
+|------------------------------------------|---------------------------|------------------------------|------------------------|
 | GET /v1/albums?ids={ids}                 | Albums                    | GetAlbums                    | ❌                     |
 | GET /v1/albums/{id}/tracks               | AlbumsTracks              | GetAlbumsTracks              | ❌                     |
 
@@ -67,6 +67,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | PUT /v1/me/albums?ids={ids}              | -                             | SaveAlbums                         | ✅                     |
 | GET /v1/me/albums                        | UsersSavedAlbums              | GetUsersSavedAlbums                | ❌                     |
 | DELETE /v1/me/albums?ids={ids}           | -                             | RemoveAlbumsForCurrentUser         | ✅                     |
+| GET /v1/me/albums/contains               | FollowAlbums                  | CheckUsersSavedAlbums              | no option              |
 
 
 ## Usage

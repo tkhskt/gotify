@@ -30,7 +30,7 @@ type (
 		client       *Client
 	}
 
-	// OAuth : describe method for OAuth
+	// OAuth : interface for OAuth
 	OAuth interface {
 		AuthURL() string
 		GetToken(*http.Request) (Gotify, error)
@@ -71,6 +71,7 @@ type (
 		SaveAlbums(albumIDs []string) error
 		GetUsersSavedAlbums() (*models.UsersSavedAlbums, error)
 		RemoveAlbumsForCurrentUser(albumIDs []string) error
+		CheckUsersSavedAlbums(albumIDs []string) (*models.FollowAlbums, error)
 	}
 )
 
@@ -133,13 +134,13 @@ func (c *Client) GetToken(r *http.Request) (Gotify, error) {
 	removeSlash := strings.Replace(c.CallbackURI, "%2F", "/", -1)
 	redirectUri := strings.Replace(removeSlash, "%3A", ":", -1)
 
-	//Bodyに値を追加
+	// add value to body of request
 	values := url.Values{}
 	values.Set("grant_type", "authorization_code")
 	values.Add("code", code)
 	values.Add("redirect_uri", redirectUri)
 
-	//リクエストオブジェクトを生成
+	// create request
 	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
 	if err != nil {
 		return nil, err
@@ -153,7 +154,7 @@ func (c *Client) GetToken(r *http.Request) (Gotify, error) {
 		return nil, err
 	}
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data := new(Tokens) //レスポンスのjsonをバインドする アクセストークン
+	data := new(Tokens) // bind the json
 	if err := json.Unmarshal(byteArray, data); err != nil {
 		return nil, err
 	}
@@ -167,12 +168,12 @@ func (c *Client) GetToken(r *http.Request) (Gotify, error) {
 func (t *Tokens) Refresh() error {
 	client := &http.Client{}
 
-	//Bodyに値を追加
+	// add value to body of request
 	values := url.Values{}
 	values.Set("grant_type", "refresh_token")
 	values.Add("refresh_token", t.RefreshToken)
 
-	//リクエストオブジェクトを生成
+	// create request
 	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
 	if err != nil {
 		return err
@@ -186,7 +187,7 @@ func (t *Tokens) Refresh() error {
 		return err
 	}
 	byteArray, _ := ioutil.ReadAll(resp.Body)
-	data := new(Tokens) //レスポンスのjsonをバインドする アクセストークン
+	data := new(Tokens) // bind the json
 	if err := json.Unmarshal(byteArray, data); err != nil {
 		return err
 	}

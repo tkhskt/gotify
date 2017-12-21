@@ -184,3 +184,33 @@ func (t *Tokens) RemoveAlbumsForCurrentUser(albumIDs []string) error {
 	}
 	return nil
 }
+
+// CheckUsersSavedAlbums : the method for GET https://api.spotify.com/v1/me/albums/contains
+func (t *Tokens) CheckUsersSavedAlbums(albumIDs []string) (*models.FollowAlbums, error) {
+	/**
+	https://developer.spotify.com/web-api/check-users-saved-albums/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/albums/contains?ids="
+
+	for i, v := range albumIDs {
+		if i == 0 {
+			endpoint += v
+		} else {
+			endpoint += "," + v
+		}
+	}
+
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+	followAlbums := new(models.FollowAlbums)
+
+	err = json.Unmarshal(res, followAlbums)
+	if err != nil {
+		return nil, err
+	}
+
+	return followAlbums, nil
+}
