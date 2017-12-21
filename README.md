@@ -69,6 +69,11 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | DELETE /v1/me/albums?ids={ids}           | -                             | RemoveAlbumsForCurrentUser         | ✅                     |
 | GET /v1/me/albums/contains               | FollowAlbums                  | CheckUsersSavedAlbums              | no option              |
 
+### personalization
+
+| Endpoint                                 | Struct                        | Method                             | Optional param support |
+|------------------------------------------|-------------------------------|------------------------------------|------------------------|
+| GET /v1/me/player/recently-played        | RecentlyPlayedTracks          | GetRecentlyPlayedTracks            | ❌                     |
 
 ## Usage
 

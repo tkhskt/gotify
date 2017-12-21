@@ -1,4 +1,4 @@
-package constants
+package values
 
 const (
 	// PlaylistReadPrivate : Read access to user's private playlists.

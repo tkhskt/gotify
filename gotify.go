@@ -8,8 +8,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/gericass/gotify/constants"
 	"github.com/gericass/gotify/models"
+	"github.com/gericass/gotify/values"
 )
 
 type (
@@ -72,6 +72,8 @@ type (
 		GetUsersSavedAlbums() (*models.UsersSavedAlbums, error)
 		RemoveAlbumsForCurrentUser(albumIDs []string) error
 		CheckUsersSavedAlbums(albumIDs []string) (*models.FollowAlbums, error)
+		// personalization
+		GetRecentlyPlayedTracks() (*models.RecentlyPlayedTracks, error)
 	}
 )
 
@@ -96,24 +98,24 @@ func (c *Client) AuthURL() string {
 	and := "%20"
 	redirectURL := "https://accounts.spotify.com/authorize/?client_id=" + c.ClientID + "&response_type=" + responseType + "&redirect_uri=" + c.CallbackURI + "&scope=" //"user-read-private%20user-library-read%20user-follow-read"
 
-	scopes := []string{constants.PlaylistReadPrivate,
-		constants.PlaylistReadCollaborative,
-		constants.PlaylistModifyPublic,
-		constants.PlaylistModifyPrivate,
-		constants.Streaming,
-		constants.UgcImageUpload,
-		constants.UserFollowModify,
-		constants.UserFollowRead,
-		constants.UserLibraryRead,
-		constants.UserLibraryModify,
-		constants.UserReadPrivate,
-		constants.UserReadBirthdate,
-		constants.UserReadEmail,
-		constants.UserTopRead,
-		constants.UserReadPlaybackState,
-		constants.UserModifyPlaybackState,
-		constants.UserReadCurrentlyPlaying,
-		constants.UserReadRecentlyPlayed}
+	scopes := []string{values.PlaylistReadPrivate,
+		values.PlaylistReadCollaborative,
+		values.PlaylistModifyPublic,
+		values.PlaylistModifyPrivate,
+		values.Streaming,
+		values.UgcImageUpload,
+		values.UserFollowModify,
+		values.UserFollowRead,
+		values.UserLibraryRead,
+		values.UserLibraryModify,
+		values.UserReadPrivate,
+		values.UserReadBirthdate,
+		values.UserReadEmail,
+		values.UserTopRead,
+		values.UserReadPlaybackState,
+		values.UserModifyPlaybackState,
+		values.UserReadCurrentlyPlaying,
+		values.UserReadRecentlyPlayed}
 	for i, v := range scopes {
 		if i == 0 {
 			redirectURL += v

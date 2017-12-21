@@ -6,6 +6,7 @@ import (
 
 	"github.com/gericass/gotify/extensions"
 	"github.com/gericass/gotify/models"
+	"github.com/gericass/gotify/values"
 )
 
 // GetFollowingArtists : the method for GET https://api.spotify.com/v1/me/following?type=artist
@@ -50,7 +51,7 @@ func (t *Tokens) FollowArtistsOrUsers(followType string, IDs []string) error {
 	if err != nil {
 		return err
 	}
-	if res != 204 {
+	if res != values.NoContent {
 		return fmt.Errorf("%d", 204)
 	}
 	return nil
@@ -76,7 +77,7 @@ func (t *Tokens) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
 	if err != nil {
 		return err
 	}
-	if res != 204 {
+	if res != values.NoContent {
 		return fmt.Errorf("%d", 204)
 	}
 	return nil
@@ -122,7 +123,7 @@ func (t *Tokens) FollowPlaylist(userID string, playlistID string) error {
 	if err != nil {
 		return err
 	}
-	if res != 200 {
+	if res != values.OK {
 		return fmt.Errorf("%d", res)
 	}
 	return nil
@@ -139,7 +140,7 @@ func (t *Tokens) UnfollowPlaylist(userID string, playlistID string) error {
 	if err != nil {
 		return err
 	}
-	if res != 200 {
+	if res != values.OK {
 		return fmt.Errorf("%d", res)
 	}
 	return nil

@@ -7,6 +7,7 @@ import (
 
 	"github.com/gericass/gotify/extensions"
 	"github.com/gericass/gotify/models"
+	"github.com/gericass/gotify/values"
 )
 
 // SaveTracks : the method for PUT https://api.spotify.com/v1/me/tracks
@@ -29,7 +30,7 @@ func (t *Tokens) SaveTracks(trackIDs []string) error {
 	if err != nil {
 		return err
 	}
-	if res != 200 {
+	if res != values.OK {
 		return fmt.Errorf("%d", res)
 	}
 	return nil
@@ -76,7 +77,7 @@ func (t *Tokens) RemoveUsersSavedTracks(trackIDs []string) error {
 	if err != nil {
 		return err
 	}
-	if res != 200 {
+	if res != values.OK {
 		return fmt.Errorf("%d", res)
 	}
 	return nil
@@ -132,7 +133,7 @@ func (t *Tokens) SaveAlbums(albumIDs []string) error {
 	if err != nil {
 		return err
 	}
-	if res != 200 {
+	if res != values.OK {
 		return fmt.Errorf("%d", res)
 	}
 	return nil
@@ -179,7 +180,7 @@ func (t *Tokens) RemoveAlbumsForCurrentUser(albumIDs []string) error {
 	if err != nil {
 		return err
 	}
-	if res != 200 {
+	if res != values.OK {
 		return fmt.Errorf("%d", res)
 	}
 	return nil
