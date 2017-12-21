@@ -75,6 +75,12 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
 | GET /v1/me/player/recently-played        | RecentlyPlayedTracks          | GetRecentlyPlayedTracks            | ❌                     |
 
+### player
+
+| Endpoint                                 | Struct                        | Method                             | Optional param support |
+|------------------------------------------|-------------------------------|------------------------------------|------------------------|
+| GET /v1/me/player/devices                | UsersAvailableDevices         | GetUsersAvailableDevices           | ❌                     |
+
 ## Usage
 
 1. Get the `client ID` and `client secret` of your application

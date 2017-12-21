@@ -74,6 +74,8 @@ type (
 		CheckUsersSavedAlbums(albumIDs []string) (*models.FollowAlbums, error)
 		// personalization
 		GetRecentlyPlayedTracks() (*models.RecentlyPlayedTracks, error)
+		// player
+		GetUsersAvailableDevices() (*models.UsersAvailableDevices, error)
 	}
 )
 
