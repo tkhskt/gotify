@@ -128,7 +128,7 @@ func (t *Tokens) FollowPlaylist(userID string, playlistID string) error {
 	return nil
 }
 
-// UnFollowPlaylist : the method for DELETE https://api.spotify.com/v1/users/{owner_id}/playlists/{playlist_id}/followers
+// UnfollowPlaylist : the method for DELETE https://api.spotify.com/v1/users/{owner_id}/playlists/{playlist_id}/followers
 func (t *Tokens) UnfollowPlaylist(userID string, playlistID string) error {
 	/**
 	https://developer.spotify.com/web-api/unfollow-playlist/
