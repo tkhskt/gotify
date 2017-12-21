@@ -81,15 +81,13 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
 | GET /v1/me/player/devices                | UsersAvailableDevices         | GetUsersAvailableDevices           | ❌                     |
 
-## Usage
+## Installation
 
 1. Get the `client ID` and `client secret` of your application
 
 2. Run `go get github.com/gericass/gotify`
 
-## Sample
-
-Please see [here](https://github.com/gericass/gotifySample) for samples
+## Usage
 
 ```go
 package handler
@@ -124,3 +122,6 @@ func CallbackHandler(c echo.Context) error {
 	return c.String(http.StatusOK, "Authentication success")
 }
 ```
+### Sample
+
+Please see [here](https://github.com/gericass/gotifySample) for samples

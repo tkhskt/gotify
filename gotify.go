@@ -76,6 +76,10 @@ type (
 		GetRecentlyPlayedTracks() (*models.RecentlyPlayedTracks, error)
 		// player
 		GetUsersAvailableDevices() (*models.UsersAvailableDevices, error)
+		// FIXME
+		// GetInformationAboutUsersCurrentPlayback() (*models.InformationAboutUsersCurrentPlayback, error)
+		// FIXME
+		//GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error)
 	}
 )
 
@@ -139,13 +143,13 @@ func (c *Client) GetToken(r *http.Request) (Gotify, error) {
 	redirectUri := strings.Replace(removeSlash, "%3A", ":", -1)
 
 	// add value to body of request
-	values := url.Values{}
-	values.Set("grant_type", "authorization_code")
-	values.Add("code", code)
-	values.Add("redirect_uri", redirectUri)
+	val := url.Values{}
+	val.Set("grant_type", "authorization_code")
+	val.Add("code", code)
+	val.Add("redirect_uri", redirectUri)
 
 	// create request
-	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
+	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(val.Encode()))
 	if err != nil {
 		return nil, err
 	}
@@ -173,12 +177,12 @@ func (t *Tokens) Refresh() error {
 	client := &http.Client{}
 
 	// add value to body of request
-	values := url.Values{}
-	values.Set("grant_type", "refresh_token")
-	values.Add("refresh_token", t.RefreshToken)
+	val := url.Values{}
+	val.Set("grant_type", "refresh_token")
+	val.Add("refresh_token", t.RefreshToken)
 
 	// create request
-	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(values.Encode()))
+	req, err := http.NewRequest("POST", "https://accounts.spotify.com/api/token", strings.NewReader(val.Encode()))
 	if err != nil {
 		return err
 	}
