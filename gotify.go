@@ -69,6 +69,8 @@ type (
 		RemoveUsersSavedTracks(trackIDs []string) error
 		CheckUsersSavedTracks(tracksIDs []string) (*models.FollowTracks, error)
 		SaveAlbums(albumIDs []string) error
+		GetUsersSavedAlbums() (*models.UsersSavedAlbums, error)
+		RemoveAlbumsForCurrentUser(albumIDs []string) error
 	}
 )
 

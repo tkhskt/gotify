@@ -112,7 +112,7 @@ func (t *Tokens) CheckUsersSavedTracks(trackIDs []string) (*models.FollowTracks,
 	return followTracks, nil
 }
 
-// SaveAlbums : the method for PUT https://api.spotify.com/v1/me/albums?ids={ids}
+// SaveAlbums : the method for GET https://api.spotify.com/v1/me/albums
 func (t *Tokens) SaveAlbums(albumIDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/save-albums-user/
@@ -129,6 +129,53 @@ func (t *Tokens) SaveAlbums(albumIDs []string) error {
 	}
 
 	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != 200 {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}
+
+// GetUsersSavedAlbums : the method for GET https://api.spotify.com/v1/me/albums
+func (t *Tokens) GetUsersSavedAlbums() (*models.UsersSavedAlbums, error) {
+	/**
+	https://developer.spotify.com/web-api/get-users-saved-albums/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/albums"
+
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+	usersSavedAlbums := new(models.UsersSavedAlbums)
+
+	err = json.Unmarshal(res, usersSavedAlbums)
+	if err != nil {
+		return nil, err
+	}
+
+	return usersSavedAlbums, nil
+}
+
+// RemoveAlbumsForCurrentUser : the method for DELETE https://api.spotify.com/v1/me/albums?ids={ids}
+func (t *Tokens) RemoveAlbumsForCurrentUser(albumIDs []string) error {
+	/**
+	https://developer.spotify.com/web-api/remove-albums-user/
+	*/
+	endpoint := "https://api.spotify.com/v1/me/albums?ids="
+
+	for i, v := range albumIDs {
+		if i == 0 {
+			endpoint += v
+		} else {
+			endpoint += "," + v
+		}
+	}
+
+	res, err := extensions.DeleteRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return err
 	}

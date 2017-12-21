@@ -17,7 +17,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### albums
 
-| Endpoint                                 | Struct Name               | Method Name               | Optional param support |
+| Endpoint                                 | Struct                    | Method                    | Optional param support |
 |------------------------------------------|---------------------------|---------------------------|------------------------|
 | GET /v1/albums?ids={ids}                 | Albums                    | GetAlbums                    | ❌                     |
 | GET /v1/albums/{id}/tracks               | AlbumsTracks              | GetAlbumsTracks              | ❌                     |
@@ -25,7 +25,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### artists
 
-| Endpoint                                 | Struct Name               | Method Name                  | Optional param support |
+| Endpoint                                 | Struct                    | Method                       | Optional param support |
 |------------------------------------------|---------------------------|------------------------------|------------------------|
 | GET /v1/artists?ids={ids}                | Artists                   | GetArtists                   | no option              |
 | GET /v1/artists/{id}/albums              | ArtistsAlbums             | GetArtistsAlbums             | ✅                     |
@@ -34,7 +34,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### browse
 
-| Endpoint                                 | Struct Name               | Method Name                  | Optional param support |
+| Endpoint                                 | Struct                    | Method                       | Optional param support |
 |------------------------------------------|---------------------------|------------------------------|------------------------|
 | GET /v1/browse/featured-playlists        | BrowseFeaturedPlaylists   | GetBrowseFeaturedPlaylists   | ❌                     |
 | GET /v1/browse/new-releases              | BrowseNewReleases         | GetBrowseNewReleases         | ❌                     |
@@ -45,7 +45,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### following
 
-| Endpoint                                 | Struct Name                   | Method Name                        | Optional param support |
+| Endpoint                                 | Struct                        | Method                             | Optional param support |
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
 | GET /v1/me/following?type=artist         | FollowingArtists              | GetFollowingArtists                | ❌                     |
 | PUT /v1/me/following                     | -                             | FollowArtistsOrUsers               | ✅                     |
@@ -58,13 +58,15 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 ### library
 
-| Endpoint                                 | Struct Name                   | Method Name                        | Optional param support |
+| Endpoint                                 | Struct                        | Method                             | Optional param support |
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
 | PUT /v1/me/tracks                        | -                             | SaveTracks                         | ✅                     |
 | GET /v1/me/tracks                        | UsersSavedTracks              | GetUsersSavedTracks                | ❌                     |
 | DELETE /v1/me/tracks                     | -                             | RemoveUsersSavedTracks             | ✅                     |
 | GET /v1/me/tracks/contains               | FollowTracks                  | CheckUsersSavedTracks              | no option              |
 | PUT /v1/me/albums?ids={ids}              | -                             | SaveAlbums                         | ✅                     |
+| GET /v1/me/albums                        | UsersSavedAlbums              | GetUsersSavedAlbums                | ❌                     |
+| DELETE /v1/me/albums?ids={ids}           | -                             | RemoveAlbumsForCurrentUser         | ✅                     |
 
 
 ## Usage
