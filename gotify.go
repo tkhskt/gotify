@@ -80,6 +80,7 @@ type (
 		// GetInformationAboutUsersCurrentPlayback() (*models.InformationAboutUsersCurrentPlayback, error)
 		// FIXME
 		//GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error)
+		TransferUsersPlayback(deviceIDs []string) error
 	}
 )
 
