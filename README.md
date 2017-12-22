@@ -124,6 +124,17 @@ func CallbackHandler(c echo.Context) error {
 
 	return c.String(http.StatusOK, "Authentication success")
 }
+
+// RefreshHandler : Controller for https://localhost:3000/refresh/
+func RefreshHandler(c echo.Context) error {
+
+	err := Token.Refresh() // Refreshing token for using Spotify API
+	if err != nil {
+		return err
+	}
+
+	return c.String(http.StatusOK, "AccessToken Refreshed")
+}
 ```
 ## Sample
 
