@@ -66,6 +66,20 @@ func DeleteRequest(url string, token string) (int, error) {
 	if err != nil {
 		return 0, err
 	}
-	//byteArray, _ := ioutil.ReadAll(resp.Body)
+	return resp.StatusCode, nil
+}
+
+// PostRequest : request to endpoint with POST method
+func PostRequest(url string, token string) (int, error) {
+	req, err := http.NewRequest("POST", url, nil)
+	if err != nil {
+		return 0, err
+	}
+	req.Header.Add("Authorization", "Bearer "+token)
+	client := new(http.Client)
+	resp, err := client.Do(req)
+	if err != nil {
+		return 0, err
+	}
 	return resp.StatusCode, nil
 }

@@ -141,3 +141,21 @@ func (t *Tokens) PauseUsersPlayback() error {
 	}
 	return nil
 }
+
+// SkipUsersPlayback : the method for POST https://api.spotify.com/v1/me/player/next
+func (t *Tokens) SkipUsersPlayback() error {
+	/**
+	https://developer.spotify.com/web-api/pause-a-users-playback/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/player/next"
+
+	res, err := extensions.PostRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != values.NoContent {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}
