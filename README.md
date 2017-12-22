@@ -80,6 +80,8 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | Endpoint                                 | Struct                        | Method                             | Optional param support |
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
 | GET /v1/me/player/devices                | UsersAvailableDevices         | GetUsersAvailableDevices           | ❌                     |
+| PUT /v1/me/player                        | -                             | TransferUsersPlayback              | ❌                     |
+| PUT /v1/me/player/play                   | -                             | StartResumeUsersPlayback           | ❌                     |
 
 ## Installation
 

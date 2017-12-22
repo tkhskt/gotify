@@ -100,7 +100,25 @@ func (t *Tokens) TransferUsersPlayback(deviceIDs []string) error {
 	if err != nil {
 		return err
 	}
-	if res != values.OK {
+	if res != values.NoContent {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}
+
+// StartResumeUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/play
+func (t *Tokens) StartResumeUsersPlayback() error {
+	/**
+	https://developer.spotify.com/web-api/start-a-users-playback/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/player/play"
+
+	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != values.NoContent {
 		return fmt.Errorf("%d", res)
 	}
 	return nil

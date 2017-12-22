@@ -81,6 +81,7 @@ type (
 		// FIXME
 		//GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error)
 		TransferUsersPlayback(deviceIDs []string) error
+		StartResumeUsersPlayback() error
 	}
 )
 
