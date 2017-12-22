@@ -84,6 +84,7 @@ type (
 		StartResumeUsersPlayback() error
 		PauseUsersPlayback() error
 		SkipUsersPlaybackToNext() error
+		SkipUsersPlaybackToPrevious() error
 	}
 )
 

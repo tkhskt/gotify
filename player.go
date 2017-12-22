@@ -159,3 +159,21 @@ func (t *Tokens) SkipUsersPlaybackToNext() error {
 	}
 	return nil
 }
+
+// SkipUsersPlaybackToPrevious : the method for POST https://api.spotify.com/v1/me/player/previous
+func (t *Tokens) SkipUsersPlaybackToPrevious() error {
+	/**
+	https://developer.spotify.com/web-api/skip-users-playback-to-previous-track/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/player/previous"
+
+	res, err := extensions.PostRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != values.NoContent {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}
