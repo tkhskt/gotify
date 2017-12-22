@@ -124,6 +124,6 @@ func CallbackHandler(c echo.Context) error {
 	return c.String(http.StatusOK, "Authentication success")
 }
 ```
-### Sample
+## Sample
 
 Please see [here](https://github.com/gericass/gotifySample) for samples
