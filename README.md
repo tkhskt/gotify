@@ -85,7 +85,8 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | POST /v1/me/player/next                  | -                             | SkipUsersPlaybackToNext            | ❌                     |
 | POST /v1/me/player/previous              | -                             | SkipUsersPlaybackToPrevious        | ❌                     |
 | PUT /v1/me/player/seek                   | -                             | SeekToPositionInCurrentlyPlayingTrack        | ❌                     |
-| PUT /v1/me/player/repeat                 | -                             | SetRepeatMode                      | ❌                     |
+| PUT /v1/me/player/repeat                 | -                             | SetRepeatModeUsersPlayback         | ❌                     |
+| PUT /v1/me/player/volume                 | -                             | SetVolumeUsersPlayback             | ❌                     |
 
 ## Installation
 

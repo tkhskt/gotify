@@ -196,13 +196,31 @@ func (t *Tokens) SeekToPositionInCurrentlyPlayingTrack(position int) error {
 	return nil
 }
 
-// SeekToPositionInCurrentlyPlayingTrack : the method for PUT https://api.spotify.com/v1/me/player/repeat
-func (t *Tokens) SetRepeatMode(state string) error {
+// SetRepeatModeUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/repeat
+func (t *Tokens) SetRepeatModeUsersPlayback(state string) error {
 	/**
 	https://developer.spotify.com/web-api/set-repeat-mode-on-users-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/repeat?state=" + state
+
+	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != values.NoContent {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}
+
+// SetVolumeUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/volume
+func (t *Tokens) SetVolumeUsersPlayback(volumePercent int) error {
+	/**
+	https://developer.spotify.com/web-api/set-volume-for-users-playback/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/player/volume" + string(volumePercent)
 
 	res, err := extensions.PutRequest(endpoint, t.AccessToken)
 	if err != nil {
