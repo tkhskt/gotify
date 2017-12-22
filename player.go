@@ -123,3 +123,21 @@ func (t *Tokens) StartResumeUsersPlayback() error {
 	}
 	return nil
 }
+
+// PauseUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/pause
+func (t *Tokens) PauseUsersPlayback() error {
+	/**
+	https://developer.spotify.com/web-api/pause-a-users-playback/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/player/pause"
+
+	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != values.NoContent {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}

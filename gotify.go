@@ -82,6 +82,7 @@ type (
 		//GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error)
 		TransferUsersPlayback(deviceIDs []string) error
 		StartResumeUsersPlayback() error
+		PauseUsersPlayback() error
 	}
 )
 
