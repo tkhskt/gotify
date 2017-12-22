@@ -142,8 +142,8 @@ func (t *Tokens) PauseUsersPlayback() error {
 	return nil
 }
 
-// SkipUsersPlayback : the method for POST https://api.spotify.com/v1/me/player/next
-func (t *Tokens) SkipUsersPlayback() error {
+// SkipUsersPlaybackToNext : the method for POST https://api.spotify.com/v1/me/player/next
+func (t *Tokens) SkipUsersPlaybackToNext() error {
 	/**
 	https://developer.spotify.com/web-api/pause-a-users-playback/
 	*/

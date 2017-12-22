@@ -83,7 +83,7 @@ type (
 		TransferUsersPlayback(deviceIDs []string) error
 		StartResumeUsersPlayback() error
 		PauseUsersPlayback() error
-		SkipUsersPlayback() error
+		SkipUsersPlaybackToNext() error
 	}
 )
 
