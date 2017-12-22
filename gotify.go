@@ -85,6 +85,8 @@ type (
 		PauseUsersPlayback() error
 		SkipUsersPlaybackToNext() error
 		SkipUsersPlaybackToPrevious() error
+		SeekToPositionInCurrentlyPlayingTrack(position int) error
+		SetRepeatMode(state string) error
 	}
 )
 

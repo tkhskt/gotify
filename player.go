@@ -177,3 +177,39 @@ func (t *Tokens) SkipUsersPlaybackToPrevious() error {
 	}
 	return nil
 }
+
+// SeekToPositionInCurrentlyPlayingTrack : the method for PUT https://api.spotify.com/v1/me/player/seek
+func (t *Tokens) SeekToPositionInCurrentlyPlayingTrack(position int) error {
+	/**
+	https://developer.spotify.com/web-api/seek-to-position-in-currently-playing-track/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/player/seek?position_ms=" + string(position)
+
+	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != values.NoContent {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}
+
+// SeekToPositionInCurrentlyPlayingTrack : the method for PUT https://api.spotify.com/v1/me/player/repeat
+func (t *Tokens) SetRepeatMode(state string) error {
+	/**
+	https://developer.spotify.com/web-api/set-repeat-mode-on-users-playback/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/player/repeat?state=" + state
+
+	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != values.NoContent {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}

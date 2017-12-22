@@ -10,7 +10,6 @@ gotify is the wrapper library for [Spotify API](https://developer.spotify.com/we
 
 gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow)
 
-
 ## Supported Endpoint
 
 *Endpoints that are not yet supported for optional parameters are also planned to be in order*
@@ -85,6 +84,8 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | PUT /v1/me/player/pause                  | -                             | PauseUsersPlayback                 | ❌                     |
 | POST /v1/me/player/next                  | -                             | SkipUsersPlaybackToNext            | ❌                     |
 | POST /v1/me/player/previous              | -                             | SkipUsersPlaybackToPrevious        | ❌                     |
+| PUT /v1/me/player/seek                   | -                             | SeekToPositionInCurrentlyPlayingTrack        | ❌                     |
+| PUT /v1/me/player/repeat                 | -                             | SetRepeatMode                      | ❌                     |
 
 ## Installation
 
@@ -138,6 +139,7 @@ func RefreshHandler(c echo.Context) error {
 	return c.String(http.StatusOK, "AccessToken Refreshed")
 }
 ```
+
 ## Sample
 
 Please see [here](https://github.com/gericass/gotifySample) for samples
