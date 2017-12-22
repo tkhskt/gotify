@@ -88,6 +88,7 @@ type (
 		SeekToPositionInCurrentlyPlayingTrack(position int) error
 		SetRepeatModeUsersPlayback(state string) error
 		SetVolumeUsersPlayback(volumePercent int) error
+		ToggleShuffleUsersPlayback(state bool) error
 	}
 )
 

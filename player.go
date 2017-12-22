@@ -220,7 +220,30 @@ func (t *Tokens) SetVolumeUsersPlayback(volumePercent int) error {
 	https://developer.spotify.com/web-api/set-volume-for-users-playback/
 	*/
 
-	endpoint := "https://api.spotify.com/v1/me/player/volume" + string(volumePercent)
+	endpoint := "https://api.spotify.com/v1/me/player/volume?volume_percent" + string(volumePercent)
+
+	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return err
+	}
+	if res != values.NoContent {
+		return fmt.Errorf("%d", res)
+	}
+	return nil
+}
+
+// ToggleShuffleUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/shuffle
+func (t *Tokens) ToggleShuffleUsersPlayback(state bool) error {
+	/**
+	https://developer.spotify.com/web-api/toggle-shuffle-for-users-playback/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/player/shuffle?state="
+	if state {
+		endpoint += "true"
+	} else {
+		endpoint += "false"
+	}
 
 	res, err := extensions.PutRequest(endpoint, t.AccessToken)
 	if err != nil {
