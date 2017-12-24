@@ -96,6 +96,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | GET /v1/search?type=artist               | SearchArtists                 | SearchArtists                      | ❌                     |
 | GET /v1/search?type=album                | SearchAlbums                  | SearchAlbums                       | ❌                     |
 | GET /v1/search?type=playlist             | SearchPlaylists               | SearchPlaylists                    | ❌                     |
+| GET /v1/search?type=track                | SearchTracks                  | SearchTracks                       | ❌                     |
 
 ## Installation
 

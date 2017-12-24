@@ -93,6 +93,7 @@ type (
 		SearchArtists(keywords string) (*models.SearchArtists, error)
 		SearchAlbums(keywords string) (*models.SearchAlbums, error)
 		SearchPlaylists(keywords string) (*models.SearchPlaylists, error)
+		SearchTracks(keywords string) (*models.SearchTracks, error)
 	}
 )
 

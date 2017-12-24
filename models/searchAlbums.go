@@ -1,5 +1,6 @@
 package models
 
+// SearchAlbums : the struct for GET https://api.spotify.com/v1/search
 type SearchAlbums struct {
 	Albums struct {
 		Href  string `json:"href"`

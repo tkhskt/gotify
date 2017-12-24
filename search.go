@@ -84,3 +84,27 @@ func (t *Tokens) SearchPlaylists(keywords string) (*models.SearchPlaylists, erro
 	}
 	return playlists, nil
 }
+
+// SearchTracks : the method for GET https://api.spotify.com/v1/search
+func (t *Tokens) SearchTracks(keywords string) (*models.SearchTracks, error) {
+	/**
+	https://developer.spotify.com/web-api/search-item/
+	*/
+
+	query := encodeQuery(keywords)
+
+	endpoint := "https://api.spotify.com/v1/search?q=" + query + "&type=track"
+
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+
+	tracks := new(models.SearchTracks)
+
+	err = json.Unmarshal(res, tracks)
+	if err != nil {
+		return nil, err
+	}
+	return tracks, nil
+}
