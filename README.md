@@ -89,6 +89,12 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | PUT /v1/me/player/volume                 | -                             | SetVolumeUsersPlayback             | ❌                     |
 | PUT /v1/me/player/shuffle                | -                             | ToggleShuffleUsersPlayback         | ❌                     |
 
+### search
+
+| Endpoint                                 | Struct                        | Method                             | Optional param support |
+|------------------------------------------|-------------------------------|------------------------------------|------------------------|
+| GET /v1/search                           | SearchArtists                 | SearchArtist                       | ❌                     |
+
 ## Installation
 
 1. Get the `client ID` and `client secret` of your application

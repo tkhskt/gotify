@@ -89,6 +89,8 @@ type (
 		SetRepeatModeUsersPlayback(state string) error
 		SetVolumeUsersPlayback(volumePercent int) error
 		ToggleShuffleUsersPlayback(state bool) error
+		// search
+		SearchArtist(keywords string) (*models.SearchArtists, error)
 	}
 )
 
