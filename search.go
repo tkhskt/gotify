@@ -60,3 +60,27 @@ func (t *Tokens) SearchAlbums(keywords string) (*models.SearchAlbums, error) {
 	}
 	return albums, nil
 }
+
+// SearchPlaylists : the method for GET https://api.spotify.com/v1/search
+func (t *Tokens) SearchPlaylists(keywords string) (*models.SearchPlaylists, error) {
+	/**
+	https://developer.spotify.com/web-api/search-item/
+	*/
+
+	query := encodeQuery(keywords)
+
+	endpoint := "https://api.spotify.com/v1/search?q=" + query + "&type=playlist"
+
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+
+	playlists := new(models.SearchPlaylists)
+
+	err = json.Unmarshal(res, playlists)
+	if err != nil {
+		return nil, err
+	}
+	return playlists, nil
+}
