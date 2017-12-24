@@ -90,7 +90,8 @@ type (
 		SetVolumeUsersPlayback(volumePercent int) error
 		ToggleShuffleUsersPlayback(state bool) error
 		// search
-		SearchArtist(keywords string) (*models.SearchArtists, error)
+		SearchArtists(keywords string) (*models.SearchArtists, error)
+		SearchAlbums(keywords string) (*models.SearchAlbums, error)
 	}
 )
 

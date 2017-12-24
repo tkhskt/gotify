@@ -93,7 +93,8 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 | Endpoint                                 | Struct                        | Method                             | Optional param support |
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
-| GET /v1/search                           | SearchArtists                 | SearchArtist                       | ❌                     |
+| GET /v1/search?type=artist               | SearchArtists                 | SearchArtists                      | ❌                     |
+| GET /v1/search?type=album                | SearchAlbums                  | SearchAlbums                       | ❌                     |
 
 ## Installation
 

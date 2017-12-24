@@ -13,8 +13,8 @@ func encodeQuery(q string) string {
 	return qstring
 }
 
-// SearchArtist : the method for GET https://api.spotify.com/v1/search
-func (t *Tokens) SearchArtist(keywords string) (*models.SearchArtists, error) {
+// SearchArtists : the method for GET https://api.spotify.com/v1/search
+func (t *Tokens) SearchArtists(keywords string) (*models.SearchArtists, error) {
 	/**
 	https://developer.spotify.com/web-api/search-item/
 	*/
@@ -35,4 +35,28 @@ func (t *Tokens) SearchArtist(keywords string) (*models.SearchArtists, error) {
 		return nil, err
 	}
 	return artists, nil
+}
+
+// SearchAlbums : the method for GET https://api.spotify.com/v1/search
+func (t *Tokens) SearchAlbums(keywords string) (*models.SearchAlbums, error) {
+	/**
+	https://developer.spotify.com/web-api/search-item/
+	*/
+
+	query := encodeQuery(keywords)
+
+	endpoint := "https://api.spotify.com/v1/search?q=" + query + "&type=album"
+
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+
+	albums := new(models.SearchAlbums)
+
+	err = json.Unmarshal(res, albums)
+	if err != nil {
+		return nil, err
+	}
+	return albums, nil
 }
