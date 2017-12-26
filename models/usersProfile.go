@@ -1,11 +1,8 @@
 package models
 
-// CurrentUsersProfile : the struct for GET https://api.spotify.com/v1/me
-type CurrentUsersProfile struct {
-	Birthdate    string `json:"birthdate"`
-	Country      string `json:"country"`
+// UsersProfile : the struct for GET https://api.spotify.com/v1/users/{user_id}
+type UsersProfile struct {
 	DisplayName  string `json:"display_name"`
-	Email        string `json:"email"`
 	ExternalUrls struct {
 		Spotify string `json:"spotify"`
 	} `json:"external_urls"`
@@ -20,7 +17,6 @@ type CurrentUsersProfile struct {
 		URL    string      `json:"url"`
 		Width  interface{} `json:"width"`
 	} `json:"images"`
-	Product string `json:"product"`
-	Type    string `json:"type"`
-	URI     string `json:"uri"`
+	Type string `json:"type"`
+	URI  string `json:"uri"`
 }

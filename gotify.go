@@ -99,6 +99,7 @@ type (
 		GetAudioAnalysis(trackID string) (*models.AudioAnalysis, error)
 		// profile
 		GetCurrentUsersProfile() (*models.CurrentUsersProfile, error)
+		GetUsersProfile(userID string) (*models.UsersProfile, error)
 	}
 )
 

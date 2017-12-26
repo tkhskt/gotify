@@ -109,7 +109,8 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 
 | Endpoint                                 | Struct                        | Method                             | Optional param support |
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
-| GET /v1/users/{user_id}                  | CurrentUsersProfile           | GetCurrentUsersProfile             | no option              |
+| GET /v1/me                               | CurrentUsersProfile           | GetCurrentUsersProfile             | no option              |
+| GET /v1/users/{user_id}                  | UsersProfile                  | GetUsersProfile                    | no option              |
 
 ## Installation
 
