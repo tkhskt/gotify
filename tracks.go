@@ -3,6 +3,8 @@ package gotify
 import (
 	"encoding/json"
 
+	"fmt"
+
 	"github.com/gericass/gotify/extensions"
 	"github.com/gericass/gotify/models"
 )
@@ -35,4 +37,29 @@ func (t *Tokens) GetTracks(trackIDs []string) (*models.Tracks, error) {
 		return nil, err
 	}
 	return tracks, nil
+}
+
+// GetAudioAnalysis : the method for GET https://api.spotify.com/v1/audio-analysis/{id}
+func (t *Tokens) GetAudioAnalysis(trackID string) (*models.AudioAnalysis, error) {
+	/**
+	https://developer.spotify.com/web-api/get-audio-analysis/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/audio-analysis/" + trackID
+
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("kokokokokokokokokkokoko")
+	fmt.Println(string(res) + "\n")
+
+	analysis := new(models.AudioAnalysis)
+
+	err = json.Unmarshal(res, analysis)
+	if err != nil {
+		return nil, err
+	}
+	return analysis, nil
 }

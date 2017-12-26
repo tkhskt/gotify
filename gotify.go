@@ -96,6 +96,7 @@ type (
 		SearchTracks(keywords string) (*models.SearchTracks, error)
 		// tracks
 		GetTracks(trackIDs []string) (*models.Tracks, error)
+		GetAudioAnalysis(trackID string) (*models.AudioAnalysis, error)
 	}
 )
 
