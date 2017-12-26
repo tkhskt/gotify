@@ -3,8 +3,6 @@ package gotify
 import (
 	"encoding/json"
 
-	"fmt"
-
 	"github.com/gericass/gotify/extensions"
 	"github.com/gericass/gotify/models"
 )
@@ -51,9 +49,6 @@ func (t *Tokens) GetAudioAnalysis(trackID string) (*models.AudioAnalysis, error)
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("kokokokokokokokokkokoko")
-	fmt.Println(string(res) + "\n")
 
 	analysis := new(models.AudioAnalysis)
 
