@@ -105,6 +105,12 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | GET /v1/tracks?ids={ids}                 | Tracks                        | GetTracks                          | ❌                     |
 | GET /v1/audio-analysis/{id}              | AudioAnalysis                 | GetAudioAnalysis                   | no option              |
 
+### tracks
+
+| Endpoint                                 | Struct                        | Method                             | Optional param support |
+|------------------------------------------|-------------------------------|------------------------------------|------------------------|
+| GET /v1/users/{user_id}                  | CurrentUsersProfile           | GetCurrentUsersProfile             | no option              |
+
 ## Installation
 
 1. Get the `client ID` and `client secret` of your application

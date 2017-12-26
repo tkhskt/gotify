@@ -97,6 +97,8 @@ type (
 		// tracks
 		GetTracks(trackIDs []string) (*models.Tracks, error)
 		GetAudioAnalysis(trackID string) (*models.AudioAnalysis, error)
+		// profile
+		GetCurrentUsersProfile() (*models.CurrentUsersProfile, error)
 	}
 )
 
