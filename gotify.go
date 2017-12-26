@@ -100,6 +100,8 @@ type (
 		// profile
 		GetCurrentUsersProfile() (*models.CurrentUsersProfile, error)
 		GetUsersProfile(userID string) (*models.UsersProfile, error)
+		// playlists
+		GetUsersPlaylists(userID string) (*models.UsersPlaylists, error)
 	}
 )
 

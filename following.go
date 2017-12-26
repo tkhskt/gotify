@@ -113,12 +113,12 @@ func (t *Tokens) CurrentFollowsArtistsOrUsers(followType string, IDs []string) (
 }
 
 // FollowPlaylist : the method for PUT https://api.spotify.com/v1/users/{owner_id}/playlists/{playlist_id}/followers
-func (t *Tokens) FollowPlaylist(userID string, playlistID string) error {
+func (t *Tokens) FollowPlaylist(ownerID string, playlistID string) error {
 	/**
 	https://developer.spotify.com/web-api/follow-playlist/
 	*/
 
-	endpoint := "https://api.spotify.com/v1/users/" + userID + "/playlists/" + playlistID + "/followers"
+	endpoint := "https://api.spotify.com/v1/users/" + ownerID + "/playlists/" + playlistID + "/followers"
 	res, err := extensions.PutRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return err
@@ -130,12 +130,12 @@ func (t *Tokens) FollowPlaylist(userID string, playlistID string) error {
 }
 
 // UnfollowPlaylist : the method for DELETE https://api.spotify.com/v1/users/{owner_id}/playlists/{playlist_id}/followers
-func (t *Tokens) UnfollowPlaylist(userID string, playlistID string) error {
+func (t *Tokens) UnfollowPlaylist(ownerID string, playlistID string) error {
 	/**
 	https://developer.spotify.com/web-api/unfollow-playlist/
 	*/
 
-	endpoint := "https://api.spotify.com/v1/users/" + userID + "/playlists/" + playlistID + "/followers"
+	endpoint := "https://api.spotify.com/v1/users/" + ownerID + "/playlists/" + playlistID + "/followers"
 	res, err := extensions.DeleteRequest(endpoint, t.AccessToken)
 	if err != nil {
 		return err

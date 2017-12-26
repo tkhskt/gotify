@@ -105,12 +105,18 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | GET /v1/tracks?ids={ids}                 | Tracks                        | GetTracks                          | ❌                     |
 | GET /v1/audio-analysis/{id}              | AudioAnalysis                 | GetAudioAnalysis                   | no option              |
 
-### profile
+### profiles
 
 | Endpoint                                 | Struct                        | Method                             | Optional param support |
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
 | GET /v1/me                               | CurrentUsersProfile           | GetCurrentUsersProfile             | no option              |
 | GET /v1/users/{user_id}                  | UsersProfile                  | GetUsersProfile                    | no option              |
+
+### playlists
+
+| Endpoint                                 | Struct                        | Method                             | Optional param support |
+|------------------------------------------|-------------------------------|------------------------------------|------------------------|
+| GET /v1/users/{user_id}/playlists        | UsersPlaylists                | GetUsersPlaylists                  | ❌                     |
 
 ## Installation
 
