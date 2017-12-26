@@ -117,6 +117,7 @@ gotify supported [Authorization Code Flow](https://developer.spotify.com/web-api
 | Endpoint                                 | Struct                        | Method                             | Optional param support |
 |------------------------------------------|-------------------------------|------------------------------------|------------------------|
 | GET /v1/users/{user_id}/playlists        | UsersPlaylists                | GetUsersPlaylists                  | ❌                     |
+| GET /v1/me/playlists                     | CurrentUsersPlaylists         | GetCurrentUsersPlaylists           | ❌                     |
 
 ## Installation
 

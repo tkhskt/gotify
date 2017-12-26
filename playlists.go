@@ -28,3 +28,25 @@ func (t *Tokens) GetUsersPlaylists(userID string) (*models.UsersPlaylists, error
 	}
 	return playlists, nil
 }
+
+// GetUsersPlaylists : the method for GET https://api.spotify.com/v1/me/playlists
+func (t *Tokens) GetCurrentUsersPlaylists() (*models.CurrentUsersProfile, error) {
+	/**
+	https://developer.spotify.com/web-api/get-a-list-of-current-users-playlists/
+	*/
+
+	endpoint := "https://api.spotify.com/v1/me/playlists"
+
+	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+
+	playlists := new(models.CurrentUsersProfile)
+
+	err = json.Unmarshal(res, playlists)
+	if err != nil {
+		return nil, err
+	}
+	return playlists, nil
+}
