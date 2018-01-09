@@ -1,4 +1,4 @@
-# gotify [![Go Report Card](https://goreportcard.com/badge/github.com/gericass/gotify)](https://goreportcard.com/report/github.com/gericass/gotify) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0951a711ac0a4f5fa9309cfdf41d8e9d)](https://www.codacy.com/app/gericass/gotify?utm_source=github.com&utm_medium=referral&utm_content=gericass/gotify&utm_campaign=badger)
+# gotify [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0951a711ac0a4f5fa9309cfdf41d8e9d)](https://www.codacy.com/app/gericass/gotify?utm_source=github.com&utm_medium=referral&utm_content=gericass/gotify&utm_campaign=badger)
 
 gotify is the wrapper library for [Spotify API](https://developer.spotify.com/web-api/)
 
