@@ -34,9 +34,6 @@ const (
 	// UserReadPrivate : Read access to user’s subscription details (type of user account).
 	UserReadPrivate = "user-read-private"
 
-	// UserReadBirthdate : Read access to the user's birthdate.
-	UserReadBirthdate = "user-read-birthdate"
-
 	// UserReadEmail : Read access to user’s email address.
 	UserReadEmail = "user-read-email"
 
