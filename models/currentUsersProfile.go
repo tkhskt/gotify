@@ -2,7 +2,6 @@ package models
 
 // CurrentUsersProfile : the struct for GET https://api.spotify.com/v1/me
 type CurrentUsersProfile struct {
-	Birthdate    string `json:"birthdate"`
 	Country      string `json:"country"`
 	DisplayName  string `json:"display_name"`
 	Email        string `json:"email"`

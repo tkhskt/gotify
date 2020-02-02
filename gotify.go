@@ -138,7 +138,6 @@ func (c *Client) AuthURL() string {
 		values.UserLibraryRead,
 		values.UserLibraryModify,
 		values.UserReadPrivate,
-		values.UserReadBirthdate,
 		values.UserReadEmail,
 		values.UserTopRead,
 		values.UserReadPlaybackState,
