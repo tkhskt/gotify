@@ -125,7 +125,7 @@ func Set(clientID string, clientSecret string, callbackURI string) OAuth {
 func (c *Client) AuthURL() string {
 	responseType := "code"
 	and := "%20"
-	redirectURL := "https://accounts.spotify.com/authorize/?client_id=" + c.ClientID + "&response_type=" + responseType + "&redirect_uri=" + c.CallbackURI + "&scope=" //"user-read-private%20user-library-read%20user-follow-read"
+	redirectURL := "https://accounts.spotify.com/authorize/?client_id=" + c.ClientID + "&response_type=" + responseType + "&redirect_uri=" + c.CallbackURI + "/&scope=" //"user-read-private%20user-library-read%20user-follow-read"
 
 	scopes := []string{values.PlaylistReadPrivate,
 		values.PlaylistReadCollaborative,
