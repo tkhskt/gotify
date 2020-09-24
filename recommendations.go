@@ -2,20 +2,19 @@ package gotify
 
 import (
 	"encoding/json"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
 )
 
 // GetRecommendations : the method for GET https://api.spotify.com/v1/recommendations
-func (t *Tokens) GetRecommendations() (*models.Recommendations, error) {
+func (g *Gotify) GetRecommendations() (*models.Recommendations, error) {
 	/**
 	https://developer.spotify.com/web-api/get-recommendations/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/recommendations"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

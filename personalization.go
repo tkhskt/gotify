@@ -2,19 +2,18 @@ package gotify
 
 import (
 	"encoding/json"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
 )
 
 // GetRecentlyPlayedTracks : the method for GET https://api.spotify.com/v1/me/player/recently-played
-func (t *Tokens) GetRecentlyPlayedTracks() (*models.RecentlyPlayedTracks, error) {
+func (g *Gotify) GetRecentlyPlayedTracks() (*models.RecentlyPlayedTracks, error) {
 	/**
 	https://developer.spotify.com/web-api/web-api-personalization-endpoints/get-recently-played/
 	*/
 	endpoint := "https://api.spotify.com/v1/me/player/recently-played"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

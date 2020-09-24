@@ -2,20 +2,19 @@ package gotify
 
 import (
 	"encoding/json"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
 )
 
 // GetBrowseFeaturedPlaylists : the method for GET https://api.spotify.com/v1/browse/featured-playlists
-func (t *Tokens) GetBrowseFeaturedPlaylists() (*models.BrowseFeaturedPlaylists, error) {
+func (g *Gotify) GetBrowseFeaturedPlaylists() (*models.BrowseFeaturedPlaylists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-list-featured-playlists/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/browse/featured-playlists"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -30,14 +29,14 @@ func (t *Tokens) GetBrowseFeaturedPlaylists() (*models.BrowseFeaturedPlaylists, 
 }
 
 // GetBrowseNewReleases : the method for GET https://api.spotify.com/v1/browse/new-releases
-func (t *Tokens) GetBrowseNewReleases() (*models.BrowseNewReleases, error) {
+func (g *Gotify) GetBrowseNewReleases() (*models.BrowseNewReleases, error) {
 	/**
 	https://developer.spotify.com/web-api/get-list-new-releases/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/browse/new-releases"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -52,14 +51,14 @@ func (t *Tokens) GetBrowseNewReleases() (*models.BrowseNewReleases, error) {
 }
 
 // GetBrowseCategories : the method for GET https://api.spotify.com/v1/browse/categories
-func (t *Tokens) GetBrowseCategories() (*models.BrowseCategories, error) {
+func (g *Gotify) GetBrowseCategories() (*models.BrowseCategories, error) {
 	/**
 	https://developer.spotify.com/web-api/get-list-categories/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/browse/categories"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -74,14 +73,14 @@ func (t *Tokens) GetBrowseCategories() (*models.BrowseCategories, error) {
 }
 
 // GetBrowseCategory : the method for GET https://api.spotify.com/v1/browse/categories/{category_id}
-func (t *Tokens) GetBrowseCategory(categoryID string) (*models.BrowseCategory, error) {
+func (g *Gotify) GetBrowseCategory(categoryID string) (*models.BrowseCategory, error) {
 	/**
 	https://developer.spotify.com/web-api/get-category/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/browse/categories/" + categoryID
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -96,14 +95,14 @@ func (t *Tokens) GetBrowseCategory(categoryID string) (*models.BrowseCategory, e
 }
 
 // GetBrowseCategorysPlaylists : the method for GET https://api.spotify.com/v1/browse/categories/{category_id}/playlists
-func (t *Tokens) GetBrowseCategorysPlaylists(categoryID string) (*models.BrowseCategorysPlaylists, error) {
+func (g *Gotify) GetBrowseCategorysPlaylists(categoryID string) (*models.BrowseCategorysPlaylists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-categorys-playlists/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/browse/categories/" + categoryID + "/playlists"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

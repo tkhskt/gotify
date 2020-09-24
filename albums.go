@@ -2,13 +2,12 @@ package gotify
 
 import (
 	"encoding/json"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
 )
 
 // GetAlbums : method for GET https://api.spotify.com/v1/albums
-func (t *Tokens) GetAlbums(albumIDs []string) (*models.Albums, error) {
+func (g *Gotify) GetAlbums(albumIDs []string) (*models.Albums, error) {
 	/**
 	https://developer.spotify.com/web-api/get-several-albums/
 	*/
@@ -23,7 +22,7 @@ func (t *Tokens) GetAlbums(albumIDs []string) (*models.Albums, error) {
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -38,14 +37,14 @@ func (t *Tokens) GetAlbums(albumIDs []string) (*models.Albums, error) {
 }
 
 // GetAlbumsTracks : the method for GET https://api.spotify.com/v1/albums/{id}/tracks
-func (t *Tokens) GetAlbumsTracks(albumID string) (*models.AlbumsTracks, error) {
+func (g *Gotify) GetAlbumsTracks(albumID string) (*models.AlbumsTracks, error) {
 	/**
 	https://developer.spotify.com/web-api/get-albums-tracks/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/albums/" + albumID + "/tracks"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

@@ -2,13 +2,12 @@ package gotify
 
 import (
 	"encoding/json"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
 )
 
 // GetArtists : the method for GET https://api.spotify.com/v1/artists
-func (t *Tokens) GetArtists(artistIDs []string) (*models.Artists, error) {
+func (g *Gotify) GetArtists(artistIDs []string) (*models.Artists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-several-artists/
 	*/
@@ -23,7 +22,7 @@ func (t *Tokens) GetArtists(artistIDs []string) (*models.Artists, error) {
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -38,14 +37,14 @@ func (t *Tokens) GetArtists(artistIDs []string) (*models.Artists, error) {
 }
 
 // GetArtistsAlbums : the method for GET https://api.spotify.com/v1/artists/{id}/albums
-func (t *Tokens) GetArtistsAlbums(artistID string) (*models.ArtistsAlbums, error) {
+func (g *Gotify) GetArtistsAlbums(artistID string) (*models.ArtistsAlbums, error) {
 	/**
 	https://developer.spotify.com/web-api/get-artists-albums/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/artists/" + artistID + "/albums"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -60,14 +59,14 @@ func (t *Tokens) GetArtistsAlbums(artistID string) (*models.ArtistsAlbums, error
 }
 
 // GetArtistsTopTracks : the method for GET https://api.spotify.com/v1/artists/{id}/top-tracks
-func (t *Tokens) GetArtistsTopTracks(artistID string, country string) (*models.ArtistsTopTracks, error) {
+func (g *Gotify) GetArtistsTopTracks(artistID string, country string) (*models.ArtistsTopTracks, error) {
 	/**
 	https://developer.spotify.com/web-api/get-artists-top-tracks/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/artists/" + artistID + "/top-tracks?country=" + country
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -82,14 +81,14 @@ func (t *Tokens) GetArtistsTopTracks(artistID string, country string) (*models.A
 }
 
 // GetArtistsRelatedArtists : the method for GET https://api.spotify.com/v1/artists/{id}/related-artists
-func (t *Tokens) GetArtistsRelatedArtists(artistID string) (*models.ArtistsRelatedArtists, error) {
+func (g *Gotify) GetArtistsRelatedArtists(artistID string) (*models.ArtistsRelatedArtists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-related-artists/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/artists/" + artistID + "/related-artists"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

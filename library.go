@@ -2,16 +2,15 @@ package gotify
 
 import (
 	"fmt"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
+	"github.com/tkhskt/gotify/values"
 
 	"encoding/json"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
-	"github.com/gericass/gotify/values"
 )
 
 // SaveTracks : the method for PUT https://api.spotify.com/v1/me/tracks
-func (t *Tokens) SaveTracks(trackIDs []string) error {
+func (g *Gotify) SaveTracks(trackIDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/unfollow-playlist/
 	*/
@@ -26,7 +25,7 @@ func (t *Tokens) SaveTracks(trackIDs []string) error {
 		}
 	}
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -37,14 +36,14 @@ func (t *Tokens) SaveTracks(trackIDs []string) error {
 }
 
 // GetUsersSavedTracks : the method for GET https://api.spotify.com/v1/me/tracks
-func (t *Tokens) GetUsersSavedTracks() (*models.UsersSavedTracks, error) {
+func (g *Gotify) GetUsersSavedTracks() (*models.UsersSavedTracks, error) {
 	/**
 	https://developer.spotify.com/web-api/get-users-saved-tracks/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/tracks"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +57,7 @@ func (t *Tokens) GetUsersSavedTracks() (*models.UsersSavedTracks, error) {
 }
 
 // RemoveUsersSavedTracks : the method for DELETE https://api.spotify.com/v1/me/tracks
-func (t *Tokens) RemoveUsersSavedTracks(trackIDs []string) error {
+func (g *Gotify) RemoveUsersSavedTracks(trackIDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/remove-tracks-user/
 	*/
@@ -73,7 +72,7 @@ func (t *Tokens) RemoveUsersSavedTracks(trackIDs []string) error {
 		}
 	}
 
-	res, err := extensions.DeleteRequest(endpoint, t.AccessToken)
+	res, err := extensions.DeleteRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -84,7 +83,7 @@ func (t *Tokens) RemoveUsersSavedTracks(trackIDs []string) error {
 }
 
 // CheckUsersSavedTracks : the method for GET https://api.spotify.com/v1/me/tracks/contains
-func (t *Tokens) CheckUsersSavedTracks(trackIDs []string) (*models.FollowTracks, error) {
+func (g *Gotify) CheckUsersSavedTracks(trackIDs []string) (*models.FollowTracks, error) {
 	/**
 	https://developer.spotify.com/web-api/check-users-saved-tracks/
 	*/
@@ -99,7 +98,7 @@ func (t *Tokens) CheckUsersSavedTracks(trackIDs []string) (*models.FollowTracks,
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -114,7 +113,7 @@ func (t *Tokens) CheckUsersSavedTracks(trackIDs []string) (*models.FollowTracks,
 }
 
 // SaveAlbums : the method for GET https://api.spotify.com/v1/me/albums
-func (t *Tokens) SaveAlbums(albumIDs []string) error {
+func (g *Gotify) SaveAlbums(albumIDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/save-albums-user/
 	*/
@@ -129,7 +128,7 @@ func (t *Tokens) SaveAlbums(albumIDs []string) error {
 		}
 	}
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -140,14 +139,14 @@ func (t *Tokens) SaveAlbums(albumIDs []string) error {
 }
 
 // GetUsersSavedAlbums : the method for GET https://api.spotify.com/v1/me/albums
-func (t *Tokens) GetUsersSavedAlbums() (*models.UsersSavedAlbums, error) {
+func (g *Gotify) GetUsersSavedAlbums() (*models.UsersSavedAlbums, error) {
 	/**
 	https://developer.spotify.com/web-api/get-users-saved-albums/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/albums"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -162,7 +161,7 @@ func (t *Tokens) GetUsersSavedAlbums() (*models.UsersSavedAlbums, error) {
 }
 
 // RemoveAlbumsForCurrentUser : the method for DELETE https://api.spotify.com/v1/me/albums?ids={ids}
-func (t *Tokens) RemoveAlbumsForCurrentUser(albumIDs []string) error {
+func (g *Gotify) RemoveAlbumsForCurrentUser(albumIDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/remove-albums-user/
 	*/
@@ -176,7 +175,7 @@ func (t *Tokens) RemoveAlbumsForCurrentUser(albumIDs []string) error {
 		}
 	}
 
-	res, err := extensions.DeleteRequest(endpoint, t.AccessToken)
+	res, err := extensions.DeleteRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -187,7 +186,7 @@ func (t *Tokens) RemoveAlbumsForCurrentUser(albumIDs []string) error {
 }
 
 // CheckUsersSavedAlbums : the method for GET https://api.spotify.com/v1/me/albums/contains
-func (t *Tokens) CheckUsersSavedAlbums(albumIDs []string) (*models.FollowAlbums, error) {
+func (g *Gotify) CheckUsersSavedAlbums(albumIDs []string) (*models.FollowAlbums, error) {
 	/**
 	https://developer.spotify.com/web-api/check-users-saved-albums/
 	*/
@@ -202,7 +201,7 @@ func (t *Tokens) CheckUsersSavedAlbums(albumIDs []string) (*models.FollowAlbums,
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
