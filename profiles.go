@@ -2,20 +2,19 @@ package gotify
 
 import (
 	"encoding/json"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
 )
 
 // GetCurrentUsersProfile : the method for GET https://api.spotify.com/v1/me
-func (t *Tokens) GetCurrentUsersProfile() (*models.CurrentUsersProfile, error) {
+func (g *Gotify) GetCurrentUsersProfile() (*models.CurrentUsersProfile, error) {
 	/**
 	https://developer.spotify.com/web-api/get-current-users-profile/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -30,14 +29,14 @@ func (t *Tokens) GetCurrentUsersProfile() (*models.CurrentUsersProfile, error) {
 }
 
 // GetUsersProfile : the method for GET https://api.spotify.com/v1/me
-func (t *Tokens) GetUsersProfile(userID string) (*models.UsersProfile, error) {
+func (g *Gotify) GetUsersProfile(userID string) (*models.UsersProfile, error) {
 	/**
 	https://developer.spotify.com/web-api/get-users-profile/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/users/" + userID
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

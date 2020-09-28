@@ -2,23 +2,23 @@ package gotify
 
 import (
 	"encoding/json"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
+	"github.com/tkhskt/gotify/values"
 
 	"fmt"
 
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
-	"github.com/gericass/gotify/values"
 )
 
 // GetUsersAvailableDevices : the method for GET https://api.spotify.com/v1/me/player/devices
-func (t *Tokens) GetUsersAvailableDevices() (*models.UsersAvailableDevices, error) {
+func (g *Gotify) GetUsersAvailableDevices() (*models.UsersAvailableDevices, error) {
 	/**
 	https://developer.spotify.com/web-api/get-a-users-available-devices/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/devices"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -34,14 +34,14 @@ func (t *Tokens) GetUsersAvailableDevices() (*models.UsersAvailableDevices, erro
 
 // FIXME parse json failing
 // GetInformationAboutUsersCurrentPlayback : the method for GET https://api.spotify.com/v1/me/player
-func (t *Tokens) GetInformationAboutUsersCurrentPlayback() (*models.InformationAboutUsersCurrentPlayback, error) {
+func (g *Gotify) GetInformationAboutUsersCurrentPlayback() (*models.InformationAboutUsersCurrentPlayback, error) {
 	/**
 	https://developer.spotify.com/web-api/get-information-about-the-users-current-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -58,14 +58,14 @@ func (t *Tokens) GetInformationAboutUsersCurrentPlayback() (*models.InformationA
 
 // FIXME parse json failing
 // GetUsersCurrentyPlayingTrack : the method for GET https://api.spotify.com/v1/me/player/currently-playing
-func (t *Tokens) GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error) {
+func (g *Gotify) GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error) {
 	/**
 	https://developer.spotify.com/web-api/get-the-users-currently-playing-track/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/currently-playing"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -81,7 +81,7 @@ func (t *Tokens) GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingT
 }
 
 // TransferUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player
-func (t *Tokens) TransferUsersPlayback(deviceIDs []string) error {
+func (g *Gotify) TransferUsersPlayback(deviceIDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/transfer-a-users-playback/
 	*/
@@ -96,7 +96,7 @@ func (t *Tokens) TransferUsersPlayback(deviceIDs []string) error {
 	if err != nil {
 		return err
 	}
-	res, err := extensions.PutRequestWithBody(endpoint, t.AccessToken, string(b))
+	res, err := extensions.PutRequestWithBody(endpoint, g.TokenInfo.GetAccessToken(), string(b))
 	if err != nil {
 		return err
 	}
@@ -107,14 +107,14 @@ func (t *Tokens) TransferUsersPlayback(deviceIDs []string) error {
 }
 
 // StartResumeUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/play
-func (t *Tokens) StartResumeUsersPlayback() error {
+func (g *Gotify) StartResumeUsersPlayback() error {
 	/**
 	https://developer.spotify.com/web-api/start-a-users-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/play"
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -125,14 +125,14 @@ func (t *Tokens) StartResumeUsersPlayback() error {
 }
 
 // PauseUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/pause
-func (t *Tokens) PauseUsersPlayback() error {
+func (g *Gotify) PauseUsersPlayback() error {
 	/**
 	https://developer.spotify.com/web-api/pause-a-users-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/pause"
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -143,14 +143,14 @@ func (t *Tokens) PauseUsersPlayback() error {
 }
 
 // SkipUsersPlaybackToNext : the method for POST https://api.spotify.com/v1/me/player/next
-func (t *Tokens) SkipUsersPlaybackToNext() error {
+func (g *Gotify) SkipUsersPlaybackToNext() error {
 	/**
 	https://developer.spotify.com/web-api/pause-a-users-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/next"
 
-	res, err := extensions.PostRequest(endpoint, t.AccessToken)
+	res, err := extensions.PostRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -161,14 +161,14 @@ func (t *Tokens) SkipUsersPlaybackToNext() error {
 }
 
 // SkipUsersPlaybackToPrevious : the method for POST https://api.spotify.com/v1/me/player/previous
-func (t *Tokens) SkipUsersPlaybackToPrevious() error {
+func (g *Gotify) SkipUsersPlaybackToPrevious() error {
 	/**
 	https://developer.spotify.com/web-api/skip-users-playback-to-previous-track/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/previous"
 
-	res, err := extensions.PostRequest(endpoint, t.AccessToken)
+	res, err := extensions.PostRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -179,14 +179,14 @@ func (t *Tokens) SkipUsersPlaybackToPrevious() error {
 }
 
 // SeekToPositionInCurrentlyPlayingTrack : the method for PUT https://api.spotify.com/v1/me/player/seek
-func (t *Tokens) SeekToPositionInCurrentlyPlayingTrack(position int) error {
+func (g *Gotify) SeekToPositionInCurrentlyPlayingTrack(position int) error {
 	/**
 	https://developer.spotify.com/web-api/seek-to-position-in-currently-playing-track/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/seek?position_ms=" + string(position)
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -197,14 +197,14 @@ func (t *Tokens) SeekToPositionInCurrentlyPlayingTrack(position int) error {
 }
 
 // SetRepeatModeUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/repeat
-func (t *Tokens) SetRepeatModeUsersPlayback(state string) error {
+func (g *Gotify) SetRepeatModeUsersPlayback(state string) error {
 	/**
 	https://developer.spotify.com/web-api/set-repeat-mode-on-users-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/repeat?state=" + state
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -215,14 +215,14 @@ func (t *Tokens) SetRepeatModeUsersPlayback(state string) error {
 }
 
 // SetVolumeUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/volume
-func (t *Tokens) SetVolumeUsersPlayback(volumePercent int) error {
+func (g *Gotify) SetVolumeUsersPlayback(volumePercent int) error {
 	/**
 	https://developer.spotify.com/web-api/set-volume-for-users-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/volume?volume_percent" + string(volumePercent)
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -233,7 +233,7 @@ func (t *Tokens) SetVolumeUsersPlayback(volumePercent int) error {
 }
 
 // ToggleShuffleUsersPlayback : the method for PUT https://api.spotify.com/v1/me/player/shuffle
-func (t *Tokens) ToggleShuffleUsersPlayback(state bool) error {
+func (g *Gotify) ToggleShuffleUsersPlayback(state bool) error {
 	/**
 	https://developer.spotify.com/web-api/toggle-shuffle-for-users-playback/
 	*/
@@ -245,7 +245,7 @@ func (t *Tokens) ToggleShuffleUsersPlayback(state bool) error {
 		endpoint += "false"
 	}
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}

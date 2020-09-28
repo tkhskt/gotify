@@ -3,21 +3,20 @@ package gotify
 import (
 	"encoding/json"
 	"fmt"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
-	"github.com/gericass/gotify/values"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
+	"github.com/tkhskt/gotify/values"
 )
 
 // GetFollowingArtists : the method for GET https://api.spotify.com/v1/me/following?type=artist
-func (t *Tokens) GetFollowingArtists() (*models.FollowingArtists, error) {
+func (t *Gotify) GetFollowingArtists() (*models.FollowingArtists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-followed-artists/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/following?type=artist"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, t.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -32,7 +31,7 @@ func (t *Tokens) GetFollowingArtists() (*models.FollowingArtists, error) {
 }
 
 // FollowArtistsOrUsers : the method for PUT https://api.spotify.com/v1/me/following
-func (t *Tokens) FollowArtistsOrUsers(followType string, IDs []string) error {
+func (g *Gotify) FollowArtistsOrUsers(followType string, IDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/follow-artists-users/
 	*/
@@ -47,7 +46,7 @@ func (t *Tokens) FollowArtistsOrUsers(followType string, IDs []string) error {
 		}
 	}
 
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -58,7 +57,7 @@ func (t *Tokens) FollowArtistsOrUsers(followType string, IDs []string) error {
 }
 
 // UnfollowArtistsOrUsers : the method for DELETE https://api.spotify.com/v1/me/following
-func (t *Tokens) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error {
+func (g *Gotify) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error {
 	/**
 	https://developer.spotify.com/web-api/follow-artists-users/
 	*/
@@ -73,7 +72,7 @@ func (t *Tokens) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
 		}
 	}
 
-	res, err := extensions.DeleteRequest(endpoint, t.AccessToken)
+	res, err := extensions.DeleteRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -84,7 +83,7 @@ func (t *Tokens) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
 }
 
 // CurrentFollowsArtistsOrUsers : the method for GET https://api.spotify.com/v1/me/following/contains
-func (t *Tokens) CurrentFollowsArtistsOrUsers(followType string, IDs []string) (*models.CurrentFollowsArtistsOrUsers, error) {
+func (g *Gotify) CurrentFollowsArtistsOrUsers(followType string, IDs []string) (*models.CurrentFollowsArtistsOrUsers, error) {
 	/**
 	https://developer.spotify.com/web-api/check-current-user-follows/
 	*/
@@ -99,7 +98,7 @@ func (t *Tokens) CurrentFollowsArtistsOrUsers(followType string, IDs []string) (
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -113,13 +112,13 @@ func (t *Tokens) CurrentFollowsArtistsOrUsers(followType string, IDs []string) (
 }
 
 // FollowPlaylist : the method for PUT https://api.spotify.com/v1/users/{owner_id}/playlists/{playlist_id}/followers
-func (t *Tokens) FollowPlaylist(ownerID string, playlistID string) error {
+func (g *Gotify) FollowPlaylist(ownerID string, playlistID string) error {
 	/**
 	https://developer.spotify.com/web-api/follow-playlist/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/users/" + ownerID + "/playlists/" + playlistID + "/followers"
-	res, err := extensions.PutRequest(endpoint, t.AccessToken)
+	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -130,13 +129,13 @@ func (t *Tokens) FollowPlaylist(ownerID string, playlistID string) error {
 }
 
 // UnfollowPlaylist : the method for DELETE https://api.spotify.com/v1/users/{owner_id}/playlists/{playlist_id}/followers
-func (t *Tokens) UnfollowPlaylist(ownerID string, playlistID string) error {
+func (g *Gotify) UnfollowPlaylist(ownerID string, playlistID string) error {
 	/**
 	https://developer.spotify.com/web-api/unfollow-playlist/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/users/" + ownerID + "/playlists/" + playlistID + "/followers"
-	res, err := extensions.DeleteRequest(endpoint, t.AccessToken)
+	res, err := extensions.DeleteRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return err
 	}
@@ -147,7 +146,7 @@ func (t *Tokens) UnfollowPlaylist(ownerID string, playlistID string) error {
 }
 
 // CheckFollowPlaylist : the method for GET https://api.spotify.com/v1/users/{owner_id}/playlists/{playlist_id}/followers/contains
-func (t *Tokens) CheckFollowPlaylist(ownerID string, playlistID string, userIDs []string) (*models.FollowPlaylist, error) {
+func (g *Gotify) CheckFollowPlaylist(ownerID string, playlistID string, userIDs []string) (*models.FollowPlaylist, error) {
 	/**
 	https://developer.spotify.com/web-api/check-user-following-playlist/
 	*/
@@ -161,7 +160,7 @@ func (t *Tokens) CheckFollowPlaylist(ownerID string, playlistID string, userIDs 
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}

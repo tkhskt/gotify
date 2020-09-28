@@ -2,10 +2,9 @@ package gotify
 
 import (
 	"encoding/json"
+	"github.com/tkhskt/gotify/extensions"
+	"github.com/tkhskt/gotify/models"
 	"strings"
-
-	"github.com/gericass/gotify/extensions"
-	"github.com/gericass/gotify/models"
 )
 
 func encodeQuery(q string) string {
@@ -14,7 +13,7 @@ func encodeQuery(q string) string {
 }
 
 // SearchArtists : the method for GET https://api.spotify.com/v1/search
-func (t *Tokens) SearchArtists(keywords string) (*models.SearchArtists, error) {
+func (g *Gotify) SearchArtists(keywords string) (*models.SearchArtists, error) {
 	/**
 	https://developer.spotify.com/web-api/search-item/
 	*/
@@ -23,7 +22,7 @@ func (t *Tokens) SearchArtists(keywords string) (*models.SearchArtists, error) {
 
 	endpoint := "https://api.spotify.com/v1/search?q=" + query + "&type=artist"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +37,7 @@ func (t *Tokens) SearchArtists(keywords string) (*models.SearchArtists, error) {
 }
 
 // SearchAlbums : the method for GET https://api.spotify.com/v1/search
-func (t *Tokens) SearchAlbums(keywords string) (*models.SearchAlbums, error) {
+func (g *Gotify) SearchAlbums(keywords string) (*models.SearchAlbums, error) {
 	/**
 	https://developer.spotify.com/web-api/search-item/
 	*/
@@ -47,7 +46,7 @@ func (t *Tokens) SearchAlbums(keywords string) (*models.SearchAlbums, error) {
 
 	endpoint := "https://api.spotify.com/v1/search?q=" + query + "&type=album"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +61,7 @@ func (t *Tokens) SearchAlbums(keywords string) (*models.SearchAlbums, error) {
 }
 
 // SearchPlaylists : the method for GET https://api.spotify.com/v1/search
-func (t *Tokens) SearchPlaylists(keywords string) (*models.SearchPlaylists, error) {
+func (g *Gotify) SearchPlaylists(keywords string) (*models.SearchPlaylists, error) {
 	/**
 	https://developer.spotify.com/web-api/search-item/
 	*/
@@ -71,7 +70,7 @@ func (t *Tokens) SearchPlaylists(keywords string) (*models.SearchPlaylists, erro
 
 	endpoint := "https://api.spotify.com/v1/search?q=" + query + "&type=playlist"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
@@ -86,7 +85,7 @@ func (t *Tokens) SearchPlaylists(keywords string) (*models.SearchPlaylists, erro
 }
 
 // SearchTracks : the method for GET https://api.spotify.com/v1/search
-func (t *Tokens) SearchTracks(keywords string) (*models.SearchTracks, error) {
+func (g *Gotify) SearchTracks(keywords string) (*models.SearchTracks, error) {
 	/**
 	https://developer.spotify.com/web-api/search-item/
 	*/
@@ -95,7 +94,7 @@ func (t *Tokens) SearchTracks(keywords string) (*models.SearchTracks, error) {
 
 	endpoint := "https://api.spotify.com/v1/search?q=" + query + "&type=track"
 
-	res, err := extensions.GetRequest(endpoint, t.AccessToken)
+	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
 	if err != nil {
 		return nil, err
 	}
