@@ -1,32 +1,27 @@
 package gotify
 
 import (
-	"encoding/json"
 	"fmt"
+
 	"github.com/tkhskt/gotify/extensions"
-	"github.com/tkhskt/gotify/models"
+	"github.com/tkhskt/gotify/models/follow"
 	"github.com/tkhskt/gotify/values"
 )
 
 // GetFollowingArtists : the method for GET https://api.spotify.com/v1/me/following?type=artist
-func (t *Gotify) GetFollowingArtists() (*models.FollowingArtists, error) {
+func (g *Gotify) GetFollowingArtists() (*follow.MeFollowingArtists, error) {
 	/**
 	https://developer.spotify.com/web-api/get-followed-artists/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/following?type=artist"
 
-	res, err := extensions.GetRequest(endpoint, t.TokenInfo.GetAccessToken())
+	var followingArtists *follow.MeFollowingArtists
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), *followingArtists)
 	if err != nil {
 		return nil, err
 	}
 
-	followingArtists := new(models.FollowingArtists)
-
-	err = json.Unmarshal(res, followingArtists)
-	if err != nil {
-		return nil, err
-	}
 	return followingArtists, nil
 }
 
@@ -83,7 +78,7 @@ func (g *Gotify) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
 }
 
 // CurrentFollowsArtistsOrUsers : the method for GET https://api.spotify.com/v1/me/following/contains
-func (g *Gotify) CurrentFollowsArtistsOrUsers(followType string, IDs []string) (*models.CurrentFollowsArtistsOrUsers, error) {
+func (g *Gotify) CurrentFollowsArtistsOrUsers(followType string, IDs []string) (*follow.MeFollowingContains, error) {
 	/**
 	https://developer.spotify.com/web-api/check-current-user-follows/
 	*/
@@ -98,16 +93,12 @@ func (g *Gotify) CurrentFollowsArtistsOrUsers(followType string, IDs []string) (
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
+	var currentFollowArtistsOrUsers *follow.MeFollowingContains
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &currentFollowArtistsOrUsers)
 	if err != nil {
 		return nil, err
 	}
-	currentFollowArtistsOrUsers := new(models.CurrentFollowsArtistsOrUsers)
 
-	err = json.Unmarshal(res, currentFollowArtistsOrUsers)
-	if err != nil {
-		return nil, err
-	}
 	return currentFollowArtistsOrUsers, nil
 }
 
@@ -146,7 +137,7 @@ func (g *Gotify) UnfollowPlaylist(ownerID string, playlistID string) error {
 }
 
 // CheckFollowPlaylist : the method for GET https://api.spotify.com/v1/users/{owner_id}/playlists/{playlist_id}/followers/contains
-func (g *Gotify) CheckFollowPlaylist(ownerID string, playlistID string, userIDs []string) (*models.FollowPlaylist, error) {
+func (g *Gotify) CheckFollowPlaylist(ownerID string, playlistID string, userIDs []string) (*follow.PlaylistFollowersContainers, error) {
 	/**
 	https://developer.spotify.com/web-api/check-user-following-playlist/
 	*/
@@ -160,13 +151,8 @@ func (g *Gotify) CheckFollowPlaylist(ownerID string, playlistID string, userIDs 
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
-	if err != nil {
-		return nil, err
-	}
-	followsPlaylist := new(models.FollowPlaylist)
-
-	err = json.Unmarshal(res, followsPlaylist)
+	var followsPlaylist *follow.PlaylistFollowersContainers
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &followsPlaylist)
 	if err != nil {
 		return nil, err
 	}

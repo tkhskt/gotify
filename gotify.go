@@ -2,6 +2,16 @@ package gotify
 
 import (
 	"github.com/tkhskt/gotify/models"
+	"github.com/tkhskt/gotify/models/album"
+	"github.com/tkhskt/gotify/models/artist"
+	"github.com/tkhskt/gotify/models/browse"
+	"github.com/tkhskt/gotify/models/follow"
+	"github.com/tkhskt/gotify/models/library"
+	"github.com/tkhskt/gotify/models/player"
+	"github.com/tkhskt/gotify/models/playlist"
+	"github.com/tkhskt/gotify/models/search"
+	"github.com/tkhskt/gotify/models/track"
+	"github.com/tkhskt/gotify/models/user"
 )
 
 type (
@@ -10,45 +20,45 @@ type (
 	}
 	IGotify interface {
 		// albums
-		GetAlbums(albumIDs []string) (*models.Albums, error)
-		GetAlbumsTracks(albumID string) (*models.AlbumsTracks, error)
-		GetArtists(artistIDs []string) (*models.Artists, error)
-		GetArtistsAlbums(artistID string) (*models.ArtistsAlbums, error)
-		GetArtistsTopTracks(artistID string, country string) (*models.ArtistsTopTracks, error)
-		GetArtistsRelatedArtists(artistID string) (*models.ArtistsRelatedArtists, error)
+		GetAlbums(albumIDs []string) (*album.Albums, error)
+		GetAlbumsTracks(albumID string) (*album.Tracks, error)
+		GetArtists(artistIDs []string) (*artist.Artists, error)
+		GetArtistsAlbums(artistID string) (*artist.Albums, error)
+		GetArtistsTopTracks(artistID string, country string) (*artist.TopTracks, error)
+		GetArtistsRelatedArtists(artistID string) (*artist.RelatedArtists, error)
 		// browse
-		GetBrowseFeaturedPlaylists() (*models.BrowseFeaturedPlaylists, error)
-		GetBrowseNewReleases() (*models.BrowseNewReleases, error)
-		GetBrowseCategories() (*models.BrowseCategories, error)
-		GetBrowseCategory(categoryID string) (*models.BrowseCategory, error)
-		GetBrowseCategorysPlaylists(categoryID string) (*models.BrowseCategorysPlaylists, error)
+		GetBrowseFeaturedPlaylists() (*browse.FeaturedPlaylists, error)
+		GetBrowseNewReleases() (*browse.NewReleases, error)
+		GetBrowseCategories() (*browse.Categories, error)
+		GetBrowseCategory(categoryID string) (*browse.Category, error)
+		GetBrowseCategorysPlaylists(categoryID string) (*browse.CategoriesPlaylists, error)
 		// recommendations
-		GetRecommendations() (*models.Recommendations, error)
+		GetRecommendations() (*browse.Recommendations, error)
 		// following
-		GetFollowingArtists() (*models.FollowingArtists, error)
+		GetFollowingArtists() (*follow.MeFollowingArtists, error)
 		FollowArtistsOrUsers(followType string, IDs []string) error
 		UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
-		CurrentFollowsArtistsOrUsers(followType string, IDs []string) (*models.CurrentFollowsArtistsOrUsers, error)
+		CurrentFollowsArtistsOrUsers(followType string, IDs []string) (*follow.MeFollowingContains, error)
 		FollowPlaylist(userID string, playlistID string) error
 		UnfollowPlaylist(userID string, playlistID string) error
-		CheckFollowPlaylist(ownerID string, playlistID string, userIDs []string) (*models.FollowPlaylist, error)
+		CheckFollowPlaylist(ownerID string, playlistID string, userIDs []string) (*follow.PlaylistFollowersContainers, error)
 		// library
 		SaveTracks(trackIDs []string) error
-		GetUsersSavedTracks() (*models.UsersSavedTracks, error)
+		GetUsersSavedTracks() (*library.MeTracks, error)
 		RemoveUsersSavedTracks(trackIDs []string) error
 		CheckUsersSavedTracks(tracksIDs []string) (*models.FollowTracks, error)
 		SaveAlbums(albumIDs []string) error
-		GetUsersSavedAlbums() (*models.UsersSavedAlbums, error)
+		GetUsersSavedAlbums() (*library.MeAlbums, error)
 		RemoveAlbumsForCurrentUser(albumIDs []string) error
-		CheckUsersSavedAlbums(albumIDs []string) (*models.FollowAlbums, error)
+		CheckUsersSavedAlbums(albumIDs []string) (*library.FollowAlbums, error)
 		// personalization
-		GetRecentlyPlayedTracks() (*models.RecentlyPlayedTracks, error)
+		GetRecentlyPlayedTracks() (*player.MePlayerRecentlyPlayed, error)
 		// player
-		GetUsersAvailableDevices() (*models.UsersAvailableDevices, error)
+		GetUsersAvailableDevices() (*player.MePlayerDevices, error)
 		// FIXME
-		// GetInformationAboutUsersCurrentPlayback() (*models.InformationAboutUsersCurrentPlayback, error)
+		/// GetInformationAboutUsersCurrentPlayback() (*player.MePlayer, error)
 		// FIXME
-		//GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error)
+		//GetUsersCurrentlyPlayingTrack() (*player.MePlayerCurrentlyPlaying, error)
 		TransferUsersPlayback(deviceIDs []string) error
 		StartResumeUsersPlayback() error
 		PauseUsersPlayback() error
@@ -59,19 +69,19 @@ type (
 		SetVolumeUsersPlayback(volumePercent int) error
 		ToggleShuffleUsersPlayback(state bool) error
 		// search
-		SearchArtists(keywords string) (*models.SearchArtists, error)
-		SearchAlbums(keywords string) (*models.SearchAlbums, error)
-		SearchPlaylists(keywords string) (*models.SearchPlaylists, error)
-		SearchTracks(keywords string) (*models.SearchTracks, error)
+		SearchArtists(keywords string) (*search.Artists, error)
+		SearchAlbums(keywords string) (*search.Albums, error)
+		SearchPlaylists(keywords string) (*search.Playlists, error)
+		SearchTracks(keywords string) (*search.Tracks, error)
 		// tracks
-		GetTracks(trackIDs []string) (*models.Tracks, error)
-		GetAudioAnalysis(trackID string) (*models.AudioAnalysis, error)
+		GetTracks(trackIDs []string) (*track.Tracks, error)
+		GetAudioAnalysis(trackID string) (*track.AudioAnalysis, error)
 		// profile
-		GetCurrentUsersProfile() (*models.CurrentUsersProfile, error)
-		GetUsersProfile(userID string) (*models.UsersProfile, error)
+		GetCurrentUsersProfile() (*user.Me, error)
+		GetUsersProfile(userID string) (*user.User, error)
 		// playlists
-		GetUsersPlaylists(userID string) (*models.UsersPlaylists, error)
-		GetCurrentUsersPlaylists() (*models.CurrentUsersProfile, error)
+		GetUsersPlaylists(userID string) (*playlist.UserPlaylists, error)
+		GetCurrentUsersPlaylists() (*playlist.MePlaylists, error)
 	}
 )
 

@@ -2,29 +2,24 @@ package gotify
 
 import (
 	"encoding/json"
+
 	"github.com/tkhskt/gotify/extensions"
-	"github.com/tkhskt/gotify/models"
+	"github.com/tkhskt/gotify/models/player"
 	"github.com/tkhskt/gotify/values"
 
 	"fmt"
-
 )
 
 // GetUsersAvailableDevices : the method for GET https://api.spotify.com/v1/me/player/devices
-func (g *Gotify) GetUsersAvailableDevices() (*models.UsersAvailableDevices, error) {
+func (g *Gotify) GetUsersAvailableDevices() (*player.MePlayerDevices, error) {
 	/**
 	https://developer.spotify.com/web-api/get-a-users-available-devices/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/devices"
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
-	if err != nil {
-		return nil, err
-	}
-	usersAvailableDevices := new(models.UsersAvailableDevices)
-
-	err = json.Unmarshal(res, usersAvailableDevices)
+	var usersAvailableDevices *player.MePlayerDevices
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &usersAvailableDevices)
 	if err != nil {
 		return nil, err
 	}
@@ -34,21 +29,15 @@ func (g *Gotify) GetUsersAvailableDevices() (*models.UsersAvailableDevices, erro
 
 // FIXME parse json failing
 // GetInformationAboutUsersCurrentPlayback : the method for GET https://api.spotify.com/v1/me/player
-func (g *Gotify) GetInformationAboutUsersCurrentPlayback() (*models.InformationAboutUsersCurrentPlayback, error) {
+func (g *Gotify) GetInformationAboutUsersCurrentPlayback() (*player.MePlayer, error) {
 	/**
 	https://developer.spotify.com/web-api/get-information-about-the-users-current-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player"
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
-	if err != nil {
-		return nil, err
-	}
-
-	informationAboutUsersCurrentPlayback := new(models.InformationAboutUsersCurrentPlayback)
-
-	err = json.Unmarshal(res, informationAboutUsersCurrentPlayback)
+	var informationAboutUsersCurrentPlayback *player.MePlayer
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &informationAboutUsersCurrentPlayback)
 	if err != nil {
 		return nil, err
 	}
@@ -58,21 +47,15 @@ func (g *Gotify) GetInformationAboutUsersCurrentPlayback() (*models.InformationA
 
 // FIXME parse json failing
 // GetUsersCurrentyPlayingTrack : the method for GET https://api.spotify.com/v1/me/player/currently-playing
-func (g *Gotify) GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error) {
+func (g *Gotify) GetUsersCurrentlyPlayingTrack() (*player.MePlayerCurrentlyPlaying, error) {
 	/**
 	https://developer.spotify.com/web-api/get-the-users-currently-playing-track/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/currently-playing"
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
-	if err != nil {
-		return nil, err
-	}
-
-	usersCurrentlyPlayingTrack := new(models.UsersCurrentlyPlayingTrack)
-
-	err = json.Unmarshal(res, usersCurrentlyPlayingTrack)
+	var usersCurrentlyPlayingTrack *player.MePlayerCurrentlyPlaying
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &usersCurrentlyPlayingTrack)
 	if err != nil {
 		return nil, err
 	}
