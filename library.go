@@ -1,11 +1,7 @@
 package gotify
 
 import (
-	"fmt"
-
-	"github.com/tkhskt/gotify/extensions"
 	"github.com/tkhskt/gotify/models/library"
-	"github.com/tkhskt/gotify/values"
 )
 
 // SaveTracks : the method for PUT https://api.spotify.com/v1/me/tracks
@@ -24,13 +20,15 @@ func (g *Gotify) SaveTracks(trackIDs []string) error {
 		}
 	}
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.OK {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.OK {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -67,13 +65,15 @@ func (g *Gotify) RemoveUsersSavedTracks(trackIDs []string) error {
 		}
 	}
 
-	res, err := extensions.DeleteRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.delete(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.OK {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.OK {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -118,13 +118,15 @@ func (g *Gotify) SaveAlbums(albumIDs []string) error {
 		}
 	}
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.OK {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.OK {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -160,13 +162,15 @@ func (g *Gotify) RemoveAlbumsForCurrentUser(albumIDs []string) error {
 		}
 	}
 
-	res, err := extensions.DeleteRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.delete(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.OK {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.OK {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 

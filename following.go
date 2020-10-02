@@ -1,11 +1,7 @@
 package gotify
 
 import (
-	"fmt"
-
-	"github.com/tkhskt/gotify/extensions"
 	"github.com/tkhskt/gotify/models/follow"
-	"github.com/tkhskt/gotify/values"
 )
 
 // GetFollowingArtists : the method for GET https://api.spotify.com/v1/me/following?type=artist
@@ -41,13 +37,15 @@ func (g *Gotify) FollowArtistsOrUsers(followType string, IDs []string) error {
 		}
 	}
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", 204)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", 204)
+	// }
 	return nil
 }
 
@@ -67,13 +65,15 @@ func (g *Gotify) UnfollowArtistsOrUsers(unfollowType string, IDs []string) error
 		}
 	}
 
-	res, err := extensions.DeleteRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.delete(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", 204)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", 204)
+	// }
 	return nil
 }
 
@@ -109,13 +109,16 @@ func (g *Gotify) FollowPlaylist(ownerID string, playlistID string) error {
 	*/
 
 	endpoint := "https://api.spotify.com/v1/users/" + ownerID + "/playlists/" + playlistID + "/followers"
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+
+	// FIXME
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.OK {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.OK {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -126,13 +129,15 @@ func (g *Gotify) UnfollowPlaylist(ownerID string, playlistID string) error {
 	*/
 
 	endpoint := "https://api.spotify.com/v1/users/" + ownerID + "/playlists/" + playlistID + "/followers"
-	res, err := extensions.DeleteRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.delete(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.OK {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.OK {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 

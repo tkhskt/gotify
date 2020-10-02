@@ -1,7 +1,6 @@
 package gotify
 
 import (
-	"github.com/tkhskt/gotify/models"
 	"github.com/tkhskt/gotify/models/album"
 	"github.com/tkhskt/gotify/models/artist"
 	"github.com/tkhskt/gotify/models/browse"
@@ -46,7 +45,7 @@ type (
 		SaveTracks(trackIDs []string) error
 		GetUsersSavedTracks() (*library.MeTracks, error)
 		RemoveUsersSavedTracks(trackIDs []string) error
-		CheckUsersSavedTracks(tracksIDs []string) (*models.FollowTracks, error)
+		CheckUsersSavedTracks(tracksIDs []string) (*library.FollowTracks, error)
 		SaveAlbums(albumIDs []string) error
 		GetUsersSavedAlbums() (*library.MeAlbums, error)
 		RemoveAlbumsForCurrentUser(albumIDs []string) error
