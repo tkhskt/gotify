@@ -1,13 +1,11 @@
 package gotify
 
 import (
-	"encoding/json"
-	"github.com/tkhskt/gotify/extensions"
-	"github.com/tkhskt/gotify/models"
+	"github.com/tkhskt/gotify/models/track"
 )
 
 // GetTracks : the method for GET https://api.spotify.com/v1/tracks
-func (g *Gotify) GetTracks(trackIDs []string) (*models.Tracks, error) {
+func (g *Gotify) GetTracks(trackIDs []string) (*track.Tracks, error) {
 	/**
 	https://developer.spotify.com/web-api/get-several-tracks/
 	*/
@@ -22,38 +20,28 @@ func (g *Gotify) GetTracks(trackIDs []string) (*models.Tracks, error) {
 		}
 	}
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
+	var tracks *track.Tracks
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &tracks)
 	if err != nil {
 		return nil, err
 	}
 
-	tracks := new(models.Tracks)
-
-	err = json.Unmarshal(res, tracks)
-	if err != nil {
-		return nil, err
-	}
 	return tracks, nil
 }
 
 // GetAudioAnalysis : the method for GET https://api.spotify.com/v1/audio-analysis/{id}
-func (g *Gotify) GetAudioAnalysis(trackID string) (*models.AudioAnalysis, error) {
+func (g *Gotify) GetAudioAnalysis(trackID string) (*track.AudioAnalysis, error) {
 	/**
 	https://developer.spotify.com/web-api/get-audio-analysis/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/audio-analysis/" + trackID
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
+	var analysis *track.AudioAnalysis
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &analysis)
 	if err != nil {
 		return nil, err
 	}
 
-	analysis := new(models.AudioAnalysis)
-
-	err = json.Unmarshal(res, analysis)
-	if err != nil {
-		return nil, err
-	}
 	return analysis, nil
 }

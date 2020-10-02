@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    types: [ready_for_review, opened, synchronize, edited]
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[wip]') && !contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.title, '[skip ci]')"
+    steps:
+      - run: echo "${{ github.event.pull_request.title }}"
+  test:
+    runs-on: ${{ matrix.os }}
+    needs: prepare
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macOS-latest
+          - windows-latest
+    steps:
+      - name: setup go
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.15
+      - name: checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: cache
+        uses: actions/cache@v1
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - name: install lint
+        run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.31.0
+      - name: lint
+        run: ./bin/golangci-lint run
+      - name: test
+        run: make test
+  notification:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Slack Notification
+        uses: homoluctus/slatify@master
+        if: "false" # always()
+        with:
+          type: ${{ job.status }}
+          job_name: "*Build and Debug Check*"
+          mention: "here"
+          mention_if: "always"
+          commit: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          url: ${{ secrets.SLACK_WEBHOOK }}

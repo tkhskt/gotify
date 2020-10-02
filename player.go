@@ -2,29 +2,21 @@ package gotify
 
 import (
 	"encoding/json"
-	"github.com/tkhskt/gotify/extensions"
-	"github.com/tkhskt/gotify/models"
-	"github.com/tkhskt/gotify/values"
-
 	"fmt"
 
+	"github.com/tkhskt/gotify/models/player"
 )
 
 // GetUsersAvailableDevices : the method for GET https://api.spotify.com/v1/me/player/devices
-func (g *Gotify) GetUsersAvailableDevices() (*models.UsersAvailableDevices, error) {
+func (g *Gotify) GetUsersAvailableDevices() (*player.MePlayerDevices, error) {
 	/**
 	https://developer.spotify.com/web-api/get-a-users-available-devices/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/devices"
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
-	if err != nil {
-		return nil, err
-	}
-	usersAvailableDevices := new(models.UsersAvailableDevices)
-
-	err = json.Unmarshal(res, usersAvailableDevices)
+	var usersAvailableDevices *player.MePlayerDevices
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &usersAvailableDevices)
 	if err != nil {
 		return nil, err
 	}
@@ -34,21 +26,15 @@ func (g *Gotify) GetUsersAvailableDevices() (*models.UsersAvailableDevices, erro
 
 // FIXME parse json failing
 // GetInformationAboutUsersCurrentPlayback : the method for GET https://api.spotify.com/v1/me/player
-func (g *Gotify) GetInformationAboutUsersCurrentPlayback() (*models.InformationAboutUsersCurrentPlayback, error) {
+func (g *Gotify) GetInformationAboutUsersCurrentPlayback() (*player.MePlayer, error) {
 	/**
 	https://developer.spotify.com/web-api/get-information-about-the-users-current-playback/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player"
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
-	if err != nil {
-		return nil, err
-	}
-
-	informationAboutUsersCurrentPlayback := new(models.InformationAboutUsersCurrentPlayback)
-
-	err = json.Unmarshal(res, informationAboutUsersCurrentPlayback)
+	var informationAboutUsersCurrentPlayback *player.MePlayer
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &informationAboutUsersCurrentPlayback)
 	if err != nil {
 		return nil, err
 	}
@@ -58,21 +44,15 @@ func (g *Gotify) GetInformationAboutUsersCurrentPlayback() (*models.InformationA
 
 // FIXME parse json failing
 // GetUsersCurrentyPlayingTrack : the method for GET https://api.spotify.com/v1/me/player/currently-playing
-func (g *Gotify) GetUsersCurrentlyPlayingTrack() (*models.UsersCurrentlyPlayingTrack, error) {
+func (g *Gotify) GetUsersCurrentlyPlayingTrack() (*player.MePlayerCurrentlyPlaying, error) {
 	/**
 	https://developer.spotify.com/web-api/get-the-users-currently-playing-track/
 	*/
 
 	endpoint := "https://api.spotify.com/v1/me/player/currently-playing"
 
-	res, err := extensions.GetRequest(endpoint, g.TokenInfo.GetAccessToken())
-	if err != nil {
-		return nil, err
-	}
-
-	usersCurrentlyPlayingTrack := new(models.UsersCurrentlyPlayingTrack)
-
-	err = json.Unmarshal(res, usersCurrentlyPlayingTrack)
+	var usersCurrentlyPlayingTrack *player.MePlayerCurrentlyPlaying
+	err := g.get(endpoint, g.TokenInfo.GetAccessToken(), &usersCurrentlyPlayingTrack)
 	if err != nil {
 		return nil, err
 	}
@@ -96,13 +76,14 @@ func (g *Gotify) TransferUsersPlayback(deviceIDs []string) error {
 	if err != nil {
 		return err
 	}
-	res, err := extensions.PutRequestWithBody(endpoint, g.TokenInfo.GetAccessToken(), string(b))
-	if err != nil {
+
+	if err := g.put(endpoint, g.TokenInfo.GetAccessToken(), string(b)); err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// FIXME
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -114,13 +95,15 @@ func (g *Gotify) StartResumeUsersPlayback() error {
 
 	endpoint := "https://api.spotify.com/v1/me/player/play"
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -132,13 +115,14 @@ func (g *Gotify) PauseUsersPlayback() error {
 
 	endpoint := "https://api.spotify.com/v1/me/player/pause"
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -150,13 +134,15 @@ func (g *Gotify) SkipUsersPlaybackToNext() error {
 
 	endpoint := "https://api.spotify.com/v1/me/player/next"
 
-	res, err := extensions.PostRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.post(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -168,13 +154,15 @@ func (g *Gotify) SkipUsersPlaybackToPrevious() error {
 
 	endpoint := "https://api.spotify.com/v1/me/player/previous"
 
-	res, err := extensions.PostRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.post(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -184,15 +172,16 @@ func (g *Gotify) SeekToPositionInCurrentlyPlayingTrack(position int) error {
 	https://developer.spotify.com/web-api/seek-to-position-in-currently-playing-track/
 	*/
 
-	endpoint := "https://api.spotify.com/v1/me/player/seek?position_ms=" + string(position)
+	endpoint := "https://api.spotify.com/v1/me/player/seek?position_ms=" + fmt.Sprintf("%d", position)
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -204,13 +193,15 @@ func (g *Gotify) SetRepeatModeUsersPlayback(state string) error {
 
 	endpoint := "https://api.spotify.com/v1/me/player/repeat?state=" + state
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -220,15 +211,17 @@ func (g *Gotify) SetVolumeUsersPlayback(volumePercent int) error {
 	https://developer.spotify.com/web-api/set-volume-for-users-playback/
 	*/
 
-	endpoint := "https://api.spotify.com/v1/me/player/volume?volume_percent" + string(volumePercent)
+	endpoint := "https://api.spotify.com/v1/me/player/volume?volume_percent" + fmt.Sprintf("%d", volumePercent)
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
 
@@ -245,12 +238,14 @@ func (g *Gotify) ToggleShuffleUsersPlayback(state bool) error {
 		endpoint += "false"
 	}
 
-	res, err := extensions.PutRequest(endpoint, g.TokenInfo.GetAccessToken())
+	// FIXME
+	var body *interface{}
+	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
 	if err != nil {
 		return err
 	}
-	if res != values.NoContent {
-		return fmt.Errorf("%d", res)
-	}
+	// if res != values.NoContent {
+	// 	return fmt.Errorf("%d", res)
+	// }
 	return nil
 }
