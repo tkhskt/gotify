@@ -2,6 +2,7 @@ package gotify
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/tkhskt/gotify/models/player"
 )
@@ -171,7 +172,7 @@ func (g *Gotify) SeekToPositionInCurrentlyPlayingTrack(position int) error {
 	https://developer.spotify.com/web-api/seek-to-position-in-currently-playing-track/
 	*/
 
-	endpoint := "https://api.spotify.com/v1/me/player/seek?position_ms=" + string(position)
+	endpoint := "https://api.spotify.com/v1/me/player/seek?position_ms=" + fmt.Sprintf("%d", position)
 
 	var body *interface{}
 	err := g.put(endpoint, g.TokenInfo.GetAccessToken(), &body)
@@ -210,7 +211,7 @@ func (g *Gotify) SetVolumeUsersPlayback(volumePercent int) error {
 	https://developer.spotify.com/web-api/set-volume-for-users-playback/
 	*/
 
-	endpoint := "https://api.spotify.com/v1/me/player/volume?volume_percent" + string(volumePercent)
+	endpoint := "https://api.spotify.com/v1/me/player/volume?volume_percent" + fmt.Sprintf("%d", volumePercent)
 
 	// FIXME
 	var body *interface{}

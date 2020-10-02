@@ -1,6 +1,8 @@
 package gotify
 
 import (
+	"net/http"
+
 	"github.com/tkhskt/gotify/models/album"
 	"github.com/tkhskt/gotify/models/artist"
 	"github.com/tkhskt/gotify/models/browse"
@@ -15,7 +17,8 @@ import (
 
 type (
 	Gotify struct {
-		TokenInfo ITokenInfo
+		TokenInfo  ITokenInfo
+		HttpClient *http.Client
 	}
 	IGotify interface {
 		// albums
@@ -85,5 +88,8 @@ type (
 )
 
 func NewGotify(tokenInfo ITokenInfo) IGotify {
-	return &Gotify{}
+	return &Gotify{
+		TokenInfo:  tokenInfo,
+		HttpClient: &http.Client{},
+	}
 }
